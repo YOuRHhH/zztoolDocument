@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 const strCode = `
 /**
- * 获取日期类型
- * @param date
- * @param type
+ * 获取时间戳
+ * @param {*} date
+ * @param {*} mill 是否返回毫秒级时间戳
  * @returns
  */
-const date = zztool.getDateType('2023-6-15',"Y/M/D")
-console.log(date)
+console.log(zztool.getTimeStamp())
 `
 </script>
 <template>

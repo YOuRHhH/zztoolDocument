@@ -1,6 +1,6 @@
 export default [
     {name:'publicmethods.title',list:[
-        {name:"publicmethods.list.li1.name",title:"getVersion",com:"getVersion"},
+        // {name:"publicmethods.list.li1.name",title:"getVersion",com:"getVersion"},
         {name:"publicmethods.list.li2.name",title:"error",com:"error"},
         {name:"publicmethods.list.li3.name",title:"debounce",com:"debounce"},
         {name:"publicmethods.list.li4.name",title:"throttle",com:"throttle"},
@@ -17,6 +17,7 @@ export default [
     {name:'getparam.title',list:[
         {name:"getparam.list.li1.name",title:"getUrlParam",com:"getUrlParam"},
         {name:"getparam.list.li2.name",title:"paramformat",com:"paramformat"},
+        {name:"getparam.list.li3.name",title:"getValue",com:"getValue"},
     ]},
     {name:'transfertype.title',list:[
         {name:"transfertype.list.li1.name",title:"toString",com:"toString"},
@@ -36,11 +37,12 @@ export default [
         {name:"data.list.li5.name",title:"groupBy",com:"groupBy"},
         {name:"data.list.li6.name",title:"dataMerge",com:"dataMerge"},
         {name:"data.list.li7.name",title:"dataUnique",com:"dataUnique"},
-        {name:"data.list.li8.name",title:"dataUnEmpty",com:"dataUnEmpty"},
+        {name:"data.list.li8.name",title:"arrayTrim",com:"arrayTrim"},
         {name:"data.list.li9.name",title:"shuffleArray",com:"shuffleArray"},
         {name:"data.list.li10.name",title:"dataChangeIndex",com:"dataChangeIndex"},
         {name:"data.list.li11.name",title:'chunkArray',com:'chunkArray'},
         {name:"data.list.li12.name",title:'getSameIndexValue',com:'getSameIndexValue'},
+        {name:"data.list.li13.name",title:'dataFind',com:'dataFind'},
     ]},
     {name:'date.title',list:[
         {name:"date.list.li1.name",title:"getDateInfo",com:"getDateInfo"},
@@ -50,6 +52,7 @@ export default [
         {name:"date.list.li5.name",title:"getBetwenDate",com:"getBetwenDate"},
         {name:"date.list.li6.name",title:"getDateList",com:"getDateList"},
         {name:"date.list.li7.name",title:"getTimeStep",com:"getTimeStep"},
+        {name:"date.list.li8.name",title:"getTimeStamp",com:"getTimeStamp"},
     ]},
     {name:'calc.title',list:[
         {name:'calc.list.li1.name',title:'getPercentage',com:"getPercentage"}

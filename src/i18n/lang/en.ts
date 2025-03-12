@@ -4,7 +4,7 @@ export default {
     install:'Install',
     use:'Use',
     close:'Close',
-    illustrate:"Illustrate",
+    illustrate:"illustrate",
     current:'Current ',
     language:"Language",
     space:"Space",
@@ -17,6 +17,7 @@ export default {
     dialog:{
         illustrate1:"Document example output is in the console",
         illustrate2:"You can use commands such as zz.getVersion() in the console to use this tool library.",
+        illustrate3:"If you have any questions, please see the source code",
     },
     illustrateComponent:{
         li1:"Installation (see console)",
@@ -52,6 +53,7 @@ export default {
         list:{
             li1:{name:"GetUrlParam",title:"getUrlParam",com:"getUrlParam"},
             li2:{name:"ParamFormat",title:"paramformat",com:"paramformat"},
+            li3:{name:"getValue",title:"getValue",com:"getValue"},
         }
     },
     transfertype:{
@@ -85,6 +87,7 @@ export default {
             li10:{name:"DataChangeIndex",title:"dataChangeIndex",com:"dataChangeIndex"},
             li11:{name:"ChunkArray",title:'chunkArray',com:'chunkArray'},
             li12:{name:"GetSameIndexValue",title:'getSameIndexValue',com:'getSameIndexValue'},
+            li13:{name:"DataFind",title:'dataFind',com:'dataFind'},
         }
     },
     date:{
@@ -97,6 +100,7 @@ export default {
             li5:{name:"GetBetwenDate",title:"getBetwenDate",com:"getBetwenDate"},
             li6:{name:"GetDateList",title:"getDateList",com:"getDateList"},
             li7:{name:"GetTimeStep",title:"getTimeStep",com:"getTimeStep"},
+            li8:{name:"getTimeStamp",title:"getTimeStamp",com:"getTimeStamp"},
         }
     },
     calc:{

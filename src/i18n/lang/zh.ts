@@ -17,6 +17,7 @@ export default {
     dialog:{
         illustrate1:"文档示例输出均在控制台",
         illustrate2:"可在控制台中使用 zz.getVersion() 等命令使用该工具库",
+        illustrate3:"有不清楚的请看源码",
     },
     illustrateComponent:{
         li1:"安装(请看控制台)",
@@ -52,6 +53,7 @@ export default {
         list:{
             li1:{name:"获取url参数",title:"getUrlParam",com:"getUrlParam"},
             li2:{name:"参数格式化",title:"paramformat",com:"paramformat"},
+            li3:{name:"获取值",title:"getValue",com:"getValue"},
         }
     },
     transfertype:{
@@ -85,6 +87,7 @@ export default {
             li10:{name:"修改索引",title:"dataChangeIndex",com:"dataChangeIndex"},
             li11:{name:"数组分块",title:'chunkArray',com:'chunkArray'},
             li12:{name:"获取索引值",title:'getSameIndexValue',com:'getSameIndexValue'},
+            li13:{name:"查找数据",title:'dataFind',com:'dataFind'},
         }
     },
     date:{
@@ -97,6 +100,7 @@ export default {
             li5:{name:"两个日期之间的日期",title:"getBetwenDate",com:"getBetwenDate"},
             li6:{name:"某日期的近期天数",title:"getDateList",com:"getDateList"},
             li7:{name:"获取时间段",title:"getTimeStep",com:"getTimeStep"},
+            li8:{name:"获取时间戳",title:"getTimeStamp",com:"getTimeStamp"},
         }
     },
     calc:{

@@ -22,7 +22,7 @@ import {default as toTree} from "./toTree.vue";
 import {default as groupBy} from "./groupBy.vue";
 import {default as dataMerge} from "./dataMerge.vue";
 import {default as dataUnique} from "./dataUnique.vue";
-import {default as dataUnEmpty} from "./dataUnEmpty.vue";
+import {default as arrayTrim} from "./arrayTrim.vue";
 import {default as getDateInfo} from "./getDateInfo.vue";
 import {default as getDateType} from "./getDateType.vue";
 import {default as getDate} from "./getDate.vue";
@@ -35,8 +35,13 @@ import {default as getPercentage} from "./getPercentage.vue"
 import {default as dataChangeIndex} from "./dataChangeIndex.vue"
 import {default as chunkArray} from "./chunkArray.vue"
 import {default as getSameIndexValue} from "./getSameIndexValue.vue"
+import {default as dataFind } from "./dataFind.vue"
+import {default as getTimeStamp } from "./getTimeStamp.vue"
+import {default as getValue } from "./getValue.vue"
 
 export {
+    getValue,
+    getTimeStamp,
     getPercentage,
     shuffleArray,
     getVersion,
@@ -63,7 +68,7 @@ export {
     groupBy,
     dataMerge,
     dataUnique,
-    dataUnEmpty,
+    arrayTrim,
     getDateInfo,
     getDateType,
     getDate,
@@ -73,5 +78,6 @@ export {
     getTimeStep,
     dataChangeIndex,
     chunkArray,
-    getSameIndexValue
+    getSameIndexValue,
+    dataFind
 }

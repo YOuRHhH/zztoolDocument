@@ -30,7 +30,7 @@ const map: any = {
   groupBy: comp.groupBy,
   dataMerge: comp.dataMerge,
   dataUnique: comp.dataUnique,
-  dataUnEmpty: comp.dataUnEmpty,
+  arrayTrim: comp.arrayTrim,
   getDateInfo: comp.getDateInfo,
   getDateType: comp.getDateType,
   getDate: comp.getDate,
@@ -43,6 +43,9 @@ const map: any = {
   dataChangeIndex: comp.dataChangeIndex,
   chunkArray: comp.chunkArray,
   getSameIndexValue: comp.getSameIndexValue,
+  dataFind:comp.dataFind,
+  getTimeStamp:comp.getTimeStamp,
+  getValue:comp.getValue,
 };
 const menuChangeFn = (item: any) => {
   console.log(
@@ -97,6 +100,7 @@ import { xxx } from '@zzcpt/zztool';
           </code>
           <h4>{{ $t("illustrate") }}</h4>
           <ul style="list-style: inside">
+            <li style="font-weight: bold;">{{ $t("dialog.illustrate3") }}</li>
             <li>{{ $t("dialog.illustrate1") }}</li>
             <li>{{ $t("dialog.illustrate2") }}</li>
           </ul>
