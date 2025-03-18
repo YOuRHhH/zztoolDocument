@@ -13,6 +13,7 @@ export default {
     run:"运行",
     output:"输出",
     mod:"炫彩模式",
+    index:"首页",
     alertTitle:"我们是匆匆的行者，祝福如春雨，滋润心田间。愿你笑容常开，生活美满甜；事业步步高，前程似锦绣。健康快乐伴你左右，幸福永远与你相伴。",
     dialog:{
         illustrate1:"文档示例输出均在控制台",

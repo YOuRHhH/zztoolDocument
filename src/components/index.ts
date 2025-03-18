@@ -38,8 +38,10 @@ import {default as getSameIndexValue} from "./getSameIndexValue.vue"
 import {default as dataFind } from "./dataFind.vue"
 import {default as getTimeStamp } from "./getTimeStamp.vue"
 import {default as getValue } from "./getValue.vue"
+import {default as index } from "./index.vue"
 
 export {
+    index,
     getValue,
     getTimeStamp,
     getPercentage,

@@ -5,6 +5,15 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   base: './',
+  server:{
+    proxy:{
+      '/github':{
+        target:'https://github.com',
+        changeOrigin:true,
+        rewrite:path=>path.replace(/^\/github/,'')
+      }
+    }
+  },
   build:{
     rollupOptions: {
       output: {

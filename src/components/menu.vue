@@ -18,6 +18,8 @@ const emit = defineEmits(["change"])
 const { t:$t,locale } = useI18n();
 const current = ref('getVersion')
 const changeFn = (item:any) => {
+    console.log(item)
+    if(item.hasOwnProperty('list') && item.list.length != 0)return;
     emit("change",item)
     current.value = item.title
 }
@@ -51,7 +53,7 @@ const localeChange = (e: any) => {
                 <div class="item">{{ $t('illustrateComponent.li3') }}</div>
             </div>
             <div class="menu-item" v-for="(item,index) in MenuData" :key="index">
-                <div class="title">{{ $t(item.name) }}</div>
+                <div class="title" @click="changeFn(item)">{{ $t(item.name) }}</div>
                 <div class="item" v-for="(items,indexs) in item.list" :key="indexs" @click="changeFn(items)" :class="[current === items.title?'active':'']">{{ $t(items.name) }}</div>
             </div>
         </CptScrollbar>

@@ -4,55 +4,14 @@ import MoveBtn from "./components/moveBtn.vue";
 import Menu from "./components/menu.vue";
 import { useI18n } from "vue-i18n";
 import * as comp from "./components/index";
-const current = shallowRef(comp.getVersion);
-const map: any = {
-  getVersion: comp.getVersion,
-  error: comp.error,
-  debounce: comp.debounce,
-  throttle: comp.throttle,
-  getType: comp.getType,
-  regIsHas: comp.regIsHas,
-  regEmail: comp.regEmail,
-  regPhone: comp.regPhone,
-  regIdcard: comp.regIdcard,
-  getUrlParam: comp.getUrlParam,
-  paramformat: comp.paramformat,
-  toString: comp.toString,
-  toArray: comp.toArray,
-  getRandom: comp.getRandom,
-  getRandomArray: comp.getRandomArray,
-  getRandomColor: comp.getRandomColor,
-  moneyFormat: comp.moneyFormat,
-  dataEqual: comp.dataEqual,
-  dataEmpty: comp.dataEmpty,
-  deepClone: comp.deepClone,
-  toTree: comp.toTree,
-  groupBy: comp.groupBy,
-  dataMerge: comp.dataMerge,
-  dataUnique: comp.dataUnique,
-  arrayTrim: comp.arrayTrim,
-  getDateInfo: comp.getDateInfo,
-  getDateType: comp.getDateType,
-  getDate: comp.getDate,
-  getMonthDays: comp.getMonthDays,
-  getBetwenDate: comp.getBetwenDate,
-  getDateList: comp.getDateList,
-  getTimeStep: comp.getTimeStep,
-  shuffleArray: comp.shuffleArray,
-  getPercentage: comp.getPercentage,
-  dataChangeIndex: comp.dataChangeIndex,
-  chunkArray: comp.chunkArray,
-  getSameIndexValue: comp.getSameIndexValue,
-  dataFind:comp.dataFind,
-  getTimeStamp:comp.getTimeStamp,
-  getValue:comp.getValue,
-};
+const current = shallowRef(comp.index);
+
 const menuChangeFn = (item: any) => {
   console.log(
     `%c${item.title}`,
     "background: #000000; color: #FFD700; border-radius: 3px 0 0 3px;padding:2px 5px"
   );
-  current.value = map[item.com];
+  current.value = comp[item.com]
 };
 
 const { t: $t } = useI18n();
@@ -80,7 +39,14 @@ setInterval(() => {
   <div style="display: flex">
     <Menu :switchs="switchs" :bgColor="bgcolor" @change="menuChangeFn" />
     <div
-      style="width: 100%; padding: 10px; transition: all 0.2s"
+      style="
+        width: 100%; 
+        padding: 10px; 
+        transition: all 0.2s;
+        height:calc(100vh - 20px);
+        max-height: calc(100vh - 20px);
+        overflow: auto;
+      "
       :style="{ backgroundColor: bgcolor }"
     >
       <component :is="current" />

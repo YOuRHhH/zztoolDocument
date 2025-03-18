@@ -1,4 +1,5 @@
 export default [
+    {name:"index",title:'index',com:"index"},
     {name:'publicmethods.title',list:[
         // {name:"publicmethods.list.li1.name",title:"getVersion",com:"getVersion"},
         {name:"publicmethods.list.li2.name",title:"error",com:"error"},
