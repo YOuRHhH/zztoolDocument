@@ -15,14 +15,6 @@ export default defineComponent({
         const scrollbarHeight:any = ref(0);
         const isInit = ref(false);
         const isInitShow = ref(true);
-        onMounted(() => {
-            nextTick(() => {
-                init()
-            })
-            window.addEventListener('resize',() => {
-                init()
-            })
-        })
         function init(){
             if(props.height === "100%"){
                 let pTop = window.getComputedStyle(scrollEle.value.parentElement).getPropertyValue('padding-top');
@@ -96,6 +88,10 @@ export default defineComponent({
             setScrollbarPosition(Math.trunc((top/stepNum)))
         }
         onMounted(() => {
+            init()
+            window.addEventListener('resize',() => {
+                init()
+            })
             document.body.addEventListener('mouseup',scrollbarUp)
             document.body.addEventListener('mousemove',scrollbarMove)
         })

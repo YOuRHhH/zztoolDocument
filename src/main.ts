@@ -4,6 +4,7 @@ import './style.css';
 import App from './App.vue';
 import inputText from './publicCom/inputText.vue';
 import output from './publicCom/output.vue';
+import { CptButton } from './publicCom/button';
 
 import * as zztool from "@zzcpt/zztool"
 const widnows = window as any;
@@ -12,5 +13,7 @@ widnows['zztool'] = zztool;
 const app = createApp(App)
 app.component('OutPut', output)
 app.component('InputText', inputText)
+app.component('CptButton', CptButton)
+
 app.use(i18n)
 app.mount('#app')

@@ -18,7 +18,6 @@ const emit = defineEmits(["change"])
 const { t:$t,locale } = useI18n();
 const current = ref('getVersion')
 const changeFn = (item:any) => {
-    console.log(item)
     if(item.hasOwnProperty('list') && item.list.length != 0)return;
     emit("change",item)
     current.value = item.title
