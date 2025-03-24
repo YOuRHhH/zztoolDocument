@@ -84,7 +84,7 @@ onBeforeUnmount(() => {
 })
 async function loadLocalChangelog() {
   try {
-    const res = await fetch('https://yourhhh.github.io/zztoolDocument/CHANGELOG.md')
+    const res = await fetch(`https://yourhhh.github.io/zztoolDocument/CHANGELOG.md?timestamp=${zztool.getTimeStamp()}`)
     if (!res.ok) throw new Error('无法加载 CHANGELOG.md')
     const markdown = await res.text()
 
@@ -101,7 +101,7 @@ async function loadLocalChangelog() {
 }
 async function loadLocalReadme() {
   try {
-    const res = await fetch('https://yourhhh.github.io/zztoolDocument/README.md')
+    const res = await fetch(`https://yourhhh.github.io/zztoolDocument/README.md?timestamp=${zztool.getTimeStamp()}`)
     if (!res.ok) throw new Error('无法加载 README.md')
     const markdown = await res.text()
 
