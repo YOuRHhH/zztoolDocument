@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n";
 import Output from "./output.vue";
-import { replaceAll } from "@zzcpt/zztool";
 const props = defineProps({
   contents: {
     type: String,
@@ -21,7 +20,7 @@ const start = () => {
   const dom = document.getElementById("textarea") as HTMLTextAreaElement;
   const value = dom.value;
 
-  const str = replaceAll(
+  const str = zztool.replaceAll(
     value,
     "console.log",
     `var outputDom = document.getElementById('output');
@@ -32,14 +31,14 @@ const start = () => {
 </script>
 
 <template>
-  <div style="display: flex" class="h-full">
-    <div class="h-full w-50">
+  <div style="display: flex;flex-direction: column;" class="h-full">
+    <div class="h-full w-full">
       <textarea class="w-full h-full" name="" id="textarea">
           {{ props.contents }}
       </textarea>
     </div>
     <template v-if="props.show">
-      <button @click="start">{{ $t("run") }}</button>
+      <button id="run" @click="start">{{ $t("run") }}</button>
       <Output></Output>
     </template>
   </div>

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import InputText from '../publicCom/inputText.vue';
 
 const strCode = `
 const email1 = 'xxxx@163.com';

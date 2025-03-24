@@ -2,7 +2,7 @@
 import { shallowRef, onMounted, ref } from "vue";
 import MoveBtn from "./components/moveBtn.vue";
 import Menu from "./components/menu.vue";
-import { useI18n } from "vue-i18n";
+// import { useI18n } from "vue-i18n";
 import * as comp from "./components/index";
 const current = shallowRef(comp.index);
 
@@ -14,24 +14,25 @@ const menuChangeFn = (item: any) => {
   current.value = comp[item.com]
 };
 
-const { t: $t } = useI18n();
-const dialog = ref();
-const closeBtn = ref();
+// const { t: $t } = useI18n();
+// const dialog = ref();
+// const closeBtn = ref();
 onMounted(() => {
-  dialog.value = document.getElementById("dialog") as any;
-  closeBtn.value = document.querySelector(".closeBtn") as any;
+  // dialog.value = document.getElementById("dialog") as any;
+  // closeBtn.value = document.querySelector(".closeBtn") as any;
   // dialog.value.showModal();
-  closeBtn.value.addEventListener("click", function () {
-    dialog.value.close();
-  });
+  // closeBtn.value.addEventListener("click", function () {
+  //   dialog.value.close();
+  // });
 });
 
 const switchs = ref(false);
 const bgcolor = ref();
 setInterval(() => {
   if (!switchs.value) return;
-  bgcolor.value = zztool.getRandomRGBA();
+  // bgcolor.value = zztool.getRandomRGBA();
 }, 100);
+
 </script>
 
 <template>
@@ -51,7 +52,7 @@ setInterval(() => {
     >
       <component :is="current" />
     </div>
-    <dialog id="dialog">
+    <!-- <dialog id="dialog">
       <div class="win">
         <div class="container">
           <h4>{{ $t("install") }}/{{ $t("use") }}</h4>
@@ -74,7 +75,7 @@ import { xxx } from '@zzcpt/zztool';
         <button class="closeBtn">{{ $t("close") }}</button>
         <button @click="switchs = !switchs">{{ $t("mod") }}</button>
       </div>
-    </dialog>
+    </dialog> -->
   </div>
 </template>
 

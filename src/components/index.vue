@@ -46,7 +46,11 @@ onMounted(() => {
 })
 const getel = (el) => {
   let dom = "";
+
   function fn(el) {
+    if(el.className === 'markdown-body'){
+      dom = el
+    }else
     if (el.parentElement.className === 'markdown-body') {
       dom = el.parentElement
     } else {
@@ -57,7 +61,7 @@ const getel = (el) => {
   return dom
 }
 const handleMouseDown = (e) => {
-  if (event.button === 2) {
+  if (e.button === 2) {
     e.preventDefault()
     const dom = getel(e.target)
     const div = document.createElement('div')

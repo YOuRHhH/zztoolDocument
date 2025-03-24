@@ -6,7 +6,7 @@ import inputText from './publicCom/inputText.vue';
 import output from './publicCom/output.vue';
 import { CptButton } from './publicCom/button';
 
-import * as zztool from "@zzcpt/zztool"
+// import * as zztool from "@zzcpt/zztool"
 const widnows = window as any;
 widnows['zz'] = zztool;
 widnows['zztool'] = zztool;

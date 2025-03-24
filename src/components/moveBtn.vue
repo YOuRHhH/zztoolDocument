@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import {ref,onMounted} from "vue";
-import * as zztool from '@zzcpt/zztool';
 import { useI18n } from "vue-i18n";
 
 const { t:$t } = useI18n();

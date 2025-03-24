@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import * as zztool from '@zzcpt/zztool';
 const clickFn = () => {
     zztool.throttle(() => {
         console.log('节流');
