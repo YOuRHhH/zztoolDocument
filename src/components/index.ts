@@ -30,17 +30,19 @@ import {default as getMonthDays} from "./getMonthDays.vue";
 import {default as getBetwenDate} from "./getBetwenDate.vue";
 import {default as getDateList} from "./getDateList.vue";
 import {default as getTimeStep} from "./getTimeStep.vue";
-import {default as shuffleArray} from "./shuffleArray.vue"
-import {default as getPercentage} from "./getPercentage.vue"
-import {default as dataChangeIndex} from "./dataChangeIndex.vue"
-import {default as chunkArray} from "./chunkArray.vue"
-import {default as getSameIndexValue} from "./getSameIndexValue.vue"
-import {default as dataFind } from "./dataFind.vue"
-import {default as getTimeStamp } from "./getTimeStamp.vue"
-import {default as getValue } from "./getValue.vue"
-import {default as index } from "./index.vue"
+import {default as shuffleArray} from "./shuffleArray.vue";
+import {default as getPercentage} from "./getPercentage.vue";
+import {default as dataChangeIndex} from "./dataChangeIndex.vue";
+import {default as chunkArray} from "./chunkArray.vue";
+import {default as getSameIndexValue} from "./getSameIndexValue.vue";
+import {default as dataFind } from "./dataFind.vue";
+import {default as getTimeStamp } from "./getTimeStamp.vue";
+import {default as getValue } from "./getValue.vue";
+import {default as strReplace} from "./strReplace.vue";
+import {default as index } from "./index.vue";
 
 export {
+    strReplace,
     index,
     getValue,
     getTimeStamp,

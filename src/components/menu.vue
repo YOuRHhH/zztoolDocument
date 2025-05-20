@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {ref} from "vue"
+import {ref,watch} from "vue"
 import {CptScrollbar} from "../publicCom/scrollbar/index"
 import {useI18n} from "vue-i18n";
 import MenuData from "../data/menu";
@@ -32,7 +32,15 @@ const localeChange = (e: any) => {
 //     if(!props.switchs) return
 //     bgcolor.value = zztool.getRandomRGBA()
 // }, 100)
-
+window.addEventListener('hashchange',() => {
+    const data = window.location.hash.substring(1) || "";
+    if(data) {
+        const hash = decodeURIComponent(data) 
+        console.log(MenuData)
+        const findData = zztool.dataFind(MenuData,'title',hash);
+        changeFn(findData)
+    }
+})
 </script>
 
 <template>
@@ -53,7 +61,7 @@ const localeChange = (e: any) => {
             </div>
             <div class="menu-item" v-for="(item,index) in MenuData" :key="index">
                 <div class="title" @click="changeFn(item)">{{ $t(item.name) }}</div>
-                <div class="item" v-for="(items,indexs) in item.list" :key="indexs" @click="changeFn(items)" :class="[current === items.title?'active':'']">{{ $t(items.name) }}</div>
+                <div class="item" v-for="(items,indexs) in item.list" :key="indexs" @click="changeFn(items)" :class="[current === items.title?'active':'']" :id="items.title">{{ $t(items.name) }}</div>
             </div>
         </CptScrollbar>
     </div>

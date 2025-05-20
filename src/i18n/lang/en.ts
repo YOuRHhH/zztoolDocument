@@ -89,6 +89,7 @@ export default {
             li11:{name:"ChunkArray",title:'chunkArray',com:'chunkArray'},
             li12:{name:"GetSameIndexValue",title:'getSameIndexValue',com:'getSameIndexValue'},
             li13:{name:"DataFind",title:'dataFind',com:'dataFind'},
+            li14:{name:"StrReplace",title:'strReplace',com:'strReplace'},
         }
     },
     date:{

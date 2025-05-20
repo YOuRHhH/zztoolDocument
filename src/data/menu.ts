@@ -44,6 +44,7 @@ export default [
         {name:"data.list.li11.name",title:'chunkArray',com:'chunkArray'},
         {name:"data.list.li12.name",title:'getSameIndexValue',com:'getSameIndexValue'},
         {name:"data.list.li13.name",title:'dataFind',com:'dataFind'},
+        {name:"data.list.li14.name",title:'strReplace',com:'strReplace'},
     ]},
     {name:'date.title',list:[
         {name:"date.list.li1.name",title:"getDateInfo",com:"getDateInfo"},

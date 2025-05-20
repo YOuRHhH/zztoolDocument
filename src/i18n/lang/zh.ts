@@ -1,3 +1,5 @@
+import { title } from "process";
+
 export default {
     zh:'中文',
     en:'英文',
@@ -89,6 +91,7 @@ export default {
             li11:{name:"数组分块",title:'chunkArray',com:'chunkArray'},
             li12:{name:"获取索引值",title:'getSameIndexValue',com:'getSameIndexValue'},
             li13:{name:"查找数据",title:'dataFind',com:'dataFind'},
+            li14:{name:"字符串替换",title:'strReplace',com:'strReplace'}
         }
     },
     date:{
