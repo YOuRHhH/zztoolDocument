@@ -1,19 +1,1108 @@
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js"></script>
-    <title>Vite + Vue + TS</title>
-    <style>
-      *{
-        font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+<!DOCTYPE html>
+<html lang="zh" style="scroll-behavior: smooth;">
+<head>
+  <meta charset="UTF-8">
+  <title>zztool 文档示例</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.css">
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/javascript/javascript.js"></script>
+  <style>
+    body { background: #f5f5f5; }
+    .container { width: 1000px; margin: 0 auto; background: #fff; padding: 16px; }
+    .editor { border: 1px solid #ddd; border-radius: 6px; }
+    iframe { width: 100%; height: 160px; border: 1px solid #ddd; border-radius: 6px; margin-top: 10px; }
+    .run-btn { margin-top: 6px; padding: 6px 12px; background: #4f46e5; color: #fff; border-radius: 4px; cursor: pointer; }
+    .param-item {color: #1F52B3;}
+    .param-type{color: #46C990;}
+    /* 展开按钮 */
+    .expand-btn {border-radius: 10px;background-color: #46C990;color: #fff;font-size: 14px;width: 50px;}
+    .expand{height: 35px;max-height: 35px;overflow: hidden;}
+    .box{position: relative;}
+    .head{position: sticky;top: 0;z-index: 1;background-color: #fff;border-bottom: 3px dotted #3d55be;}
+    .moveBox{position: fixed;right: 50px;bottom: 50px;width: 50px;height: 50px;cursor: pointer;border-radius: 50%;background-color: #1F52B3;z-index: 2;color: #fff;line-height: 50px;text-align: center;font-weight: bold;}
+    .menu{
+      position: fixed;
+      height: 100vh;
+      overflow: hidden;
+      width: 200px;
+      overflow-y: auto;
+      display: flex;
+      top: 0;
+      right: 0;
+      z-index: 3;
+      background-color: #f5f5f5;
+      color: #000;
+      padding: 10px;
+      flex-direction: column;
+      border-left: 1px solid #ddd;
+    }
+    .menu h1{
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .menu a{
+      display: block;
+    }
+    .none{display: none;}
+    .block{display: block;}
+    .active{
+      animation: active 1.5s ease-in-out;
+    }
+    @keyframes active {
+      0% {
+        transform-origin: 0 50%;
+        scale: 0.5;
       }
-    </style>
-  </head>
- <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+      20% {
+        transform-origin: 0 50%;
+        scale: 1.0;
+      }
+      40% {
+        transform-origin: 0 50%;
+        scale: 0.6;
+      }
+      60% {
+        transform-origin: 0 50%;
+        scale: 1;
+      }
+      80% {
+        transform-origin: 0 50%;
+        scale: 0.8;
+      }
+      100% {
+        transform-origin: 0 50%;
+        scale: 1.0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-2xl font-bold mb-4">zztool 文档示例</h1>
+    <!-- arrayTrim 示例 -->
+    <div class="box mb-6 expand" id="arrayTrim">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"><a href="#arrayTrim">#arrayTrim 数组去空</a> <button class="expand-btn" onclick="expand('arrayTrim')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>arrayTrim(data: any[]): any[]</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b>data</b>: 需要去除空值的数组</li>
+        <li><b>返回值</b>: 去掉 <code>null</code> / <code>undefined</code> / 空字符串 等后的新数组</li>
+      </ul>
+      <textarea id="code-arrayTrim">
+// 0，false 不会被清空
+// null，undefined，''，[]，{}，,, 会被清空
+const arr = [null, {}, [], 0, false, '', , {abc:123}];
+console.log(zztool.arrayTrim(arr)); // [0, false, {abc:123}]</textarea>
+      <button class="run-btn" onclick="runJS(editors['arrayTrim'],'out-arrayTrim')">运行</button>
+      <iframe id="out-arrayTrim"></iframe>
+    </div>
+    <!-- chunkArray 示例 -->
+    <div class="box mb-6 expand" id="chunkArray">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#chunkArray">#chunkArray 数组分组</a> <button class="expand-btn" onclick="expand('chunkArray')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>chunkArray(data: any[], size: number): any[]</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b>data</b>: 需要去除空值的数组</li>
+        <li><b>size</b>: 分size块</li>
+        <li><b>returns</b>: Array</li>
+      </ul>
+      <textarea id="code-chunkArray">
+const arr = [1,2,3,4,5,6,7,8,9,10];
+console.log(window.zztool.chunkArray(arr, 2));
+// [[1,2,3,4,5],[6,7,8,9,10]]
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['chunkArray'],'out-chunkArray')">运行</button>
+      <iframe id="out-chunkArray"></iframe>
+    </div>
+    <!-- chunkArrayItem -->
+    <div class="box mb-6 expand" id="chunkArrayItem">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#chunkArrayItem">#chunkArrayItem 数组分组</a> <button class="expand-btn" onclick="expand('chunkArrayItem')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>chunkArrayItem(arr: any[], size: number): any[]</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b>data</b>: 需要去除空值的数组</li>
+        <li><b>size</b>: 分组大小</li>
+        <li><b>returns</b>: Array</li>
+      </ul>
+      <textarea id="code-chunkArrayItem">
+const arr = [1,2,3,4,5,6,7,8,9,10];
+console.log(window.zztool.chunkArrayItem(arr, 3));
+// [[1,2,3], [4,5,6], [7,8,9], [10]]
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['chunkArrayItem'],'out-chunkArrayItem')">运行</button>
+      <iframe id="out-chunkArrayItem"></iframe>
+    </div>
+    <!-- dataAllEmpty -->
+    <div class="box mb-6 expand" id="dataAllEmpty">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#dataAllEmpty">#dataAllEmpty 数据是否为空</a> <button class="expand-btn" onclick="expand('dataAllEmpty')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>dataAllEmpty< T extends object> (data: T,options: DataAllEmptyOptions = {}): boolean | any[]</code></p>
+      <p class="text-sm text-gray-600 mb-2">
+        <code>
+interface DataAllEmptyOptions {
+  returnKeys?: boolean;
+  parentKey?: string;
+  checkEmptyFn?: (value: any) => boolean;
+  ignoreKeys?: string[];
+  maxDepth?: number;
+}
+        </code>
+      </p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{object}</span><span class="param-item">data</span></b>: 需要检查的对象</li>
+        <li><b><span class="param-type">{DataAllEmptyOptions}</span> <span class="param-item">options</span></b></li>
+        <li><b><span class="param-type">{boolean}</span> <span class="param-item">options.returnKeys</span></b>: 是否返回空值的路径（默认返回 true/false）</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">options.parentKey</span></b>: 父级路径（默认为空字符串）</li>
+        <li><b><span class="param-type">{function}</span> <span class="param-item">options.checkEmptyFn</span></b>: 自定义判断是否为空的函数（默认使用内置函数）</li>
+        <li><b><span class="param-type">{array< string>}</span> <span class="param-item">options.ignoreKeys</span></b>: 忽略的键名（默认为空数组）</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">options.maxDepth</span></b>: 最大递归深度（默认无限制）</li>
+        <li><b><span class="param-type">{array< string> | boolean}</span> <span class="param-item">returns</span></b>: 全部为空时返回 `false`，否则返回 `true`</li>
+      </ul>
+      <textarea id="code-dataAllEmpty">
+const obj = { a: 1, b: 2, 3:{} };
+console.log(window.zztool.dataAllEmpty(obj));
+// true
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['dataAllEmpty'],'out-dataAllEmpty')">运行</button>
+      <iframe id="out-dataAllEmpty"></iframe>
+    </div>
+    <!-- dataChangeAllIndex -->
+    <div class="box mb-6 expand" id="dataChangeAllIndex">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#dataChangeAllIndex">#dataChangeAllIndex 修改对象所有的下标</a> <button class="expand-btn" onclick="expand('dataChangeAllIndex')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>dataChangeAllIndex< T extends object>(data:T, index:any, newIndex:any):T</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{T}</span> <span class="param-item">data</span></b>: 需要修改的对象</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">index</span></b>: 旧下标</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">newIndex</span></b>: 旧下标</li>
+        <li><b><span class="param-type">{T}</span> <span class="param-item">returns</span></b>: 新数据</li>
+      </ul>
+      <textarea id="code-dataChangeAllIndex">
+console.log(window.zztool.dataChangeAllIndex({ a: { b: { c: 1 },c:1 } }, "c", "xxx"));
+// { a: { b: { xxx: 1 },xxx:1 } }
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['dataChangeAllIndex'],'out-dataChangeAllIndex')">运行</button>
+      <iframe id="out-dataChangeAllIndex"></iframe>
+    </div>
+    <!-- dataChangeIndex -->
+    <div class="box mb-6 expand" id="dataChangeIndex">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#dataChangeIndex">#dataChangeIndex 修改对象对应的下标</a> <button class="expand-btn" onclick="expand('dataChangeIndex')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>dataChangeIndex< T extends object>(data:T, index:any, newIndex:any):T</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{T}</span> <span class="param-item">data</span></b>: 需要修改的对象</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">index</span></b>: 旧下标</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">newIndex</span></b>: 旧下标</li>
+        <li><b><span class="param-type">{T}</span> <span class="param-item">returns</span></b>: 新数据</li>
+      </ul>
+      <textarea id="code-dataChangeIndex">
+console.log(window.zztool.dataChangeIndex({ a: { b: { c: 1 },c:1 } }, "a.c,a.b.c", "a.xxx,a.b.fg"));
+// { a: { b: { fg: 1 }, xxx:1 } }
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['dataChangeIndex'],'out-dataChangeIndex')">运行</button>
+      <iframe id="out-dataChangeIndex"></iframe>
+    </div>
+    <!-- dataEqual -->
+    <div class="box mb-6 expand" id="dataEqual">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#dataEqual">#dataEqual 数据对比</a> <button class="expand-btn" onclick="expand('dataEqual')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>dataEqual(obj1: any,obj2: any,options: { returnKeys?: boolean; arrayDiff?: boolean } = {}):boolean | string[]</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{object|array}</span> <span class="param-item">obj1</span></b>: 第一个对象/数组</li>
+        <li><b><span class="param-type">{object|array}</span> <span class="param-item">obj2</span></b>: 第二个对象/数组</li>
+        <li><b><span class="param-type">{object}</span> <span class="param-item">options</span></b>: 配置项</li>
+        <li><b><span class="param-type">{boolean}</span> <span class="param-item">options.returnKeys</span></b>: 是否返回不一致的 key（默认 false）</li>
+        <li><b><span class="param-type">{boolean}</span> <span class="param-item">options.arrayDiff</span></b>: 是否检查数组内差异（默认 true）</li>
+        <li><b><span class="param-type">{boolean | string[]}</span> <span class="param-item">returns</span></b>: 相等返回 false，不相等返回 true 或不同 key true）</li>
+
+      </ul>
+      <textarea id="code-dataEqual">
+const obj1 = { a: 1, b: { c: 2 } };
+const obj2 = { a: 1, b: { c: 3 } };
+console.log(window.zztool.dataEqual(obj1, obj2, { returnKeys: true }));
+// ['b.c']
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['dataEqual'],'out-dataEqual')">运行</button>
+      <iframe id="out-dataEqual"></iframe>
+    </div>
+    <!-- dataFind -->
+    <div class="box mb-6 expand" id="dataFind">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#dataFind">#dataFind 数据对比</a> <button class="expand-btn" onclick="expand('dataFind')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>dataFind< T extends object,V>(data: T, key: String, value: V):T</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{object|array}</span> <span class="param-item">data</span></b>: 要搜索的数据（对象或数组）</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">key</span></b>: 要匹配的字段</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">value</span></b>: 目标值</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">returns</span></b>: 匹配项，如果未找到则返回 null</li>
+
+      </ul>
+      <textarea id="code-dataFind">
+console.log(window.zztool.dataFind({ a: 1, b: { c: 2 , d: 3} }, 'c', 2));
+// { c: 2, d: 3 }
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['dataFind'],'out-dataFind')">运行</button>
+      <iframe id="out-dataFind"></iframe>
+    </div>
+    <!-- dataMerge -->
+    <div class="box mb-6 expand" id="dataMerge">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#dataMerge">#dataMerge 合并数据，取交集/并集/差集/补集</a> <button class="expand-btn" onclick="expand('dataMerge')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>dataMerge< T>(data1: T[], data2: T[], type: number = 1): T[]</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{*}</span> <span class="param-item">data1</span></b>: 数据1</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">data2</span></b>: 数据2</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">type</span></b>: 1：并集，2：交集，3：差集，4：补集</li>
+        <li><b><span class="param-type">{array}</span> <span class="param-item">returns</span></b>: 合并后的数组</li>
+      </ul>
+      <textarea id="code-dataMerge">
+console.log(window.zztool.dataMerge([1,2,3], [2,3,4], 1));
+// [1,2,3,4]
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['dataMerge'],'out-dataMerge')">运行</button>
+      <iframe id="out-dataMerge"></iframe>
+    </div>
+    <!-- debounce -->
+    <div class="box mb-6 expand" id="debounce">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#debounce">#debounce 防抖</a> <button class="expand-btn" onclick="expand('debounce')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>debounce</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+      </ul>
+      <textarea id="code-debounce">
+ // 调用示例
+ const is = () => {
+   debounce(() => {
+      console.log("debounce");
+   },1000)
+ }
+      </textarea>
+      <!-- <button class="run-btn" onclick="runJS(editors['debounce'],'out-debounce')">运行</button> -->
+      <!-- <iframe id="out-debounce"></iframe> -->
+    </div>
+    <!-- throttle -->
+    <div class="box mb-6 expand" id="throttle">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#throttle">#throttle 节流</a> <button class="expand-btn" onclick="expand('throttle')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>throttle</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+      </ul>
+      <textarea id="code-throttle">
+ // 调用示例
+ const is = () => {
+   throttle(() => {
+      console.log("throttle");
+   },1000)
+ }
+      </textarea>
+      <!-- <button class="run-btn" onclick="runJS(editors['debounce'],'out-debounce')">运行</button> -->
+      <!-- <iframe id="out-debounce"></iframe> -->
+    </div>
+    <!-- deepClone -->
+    <div class="box mb-6 expand" id="deepClone">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#deepClone">#deepClone 克隆数据</a> <button class="expand-btn" onclick="expand('deepClone')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>deepClone< T>(obj:T, hash = new WeakMap()):T</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{*}</span> <span class="param-item">obj</span></b>: 数据</li>
+        <li><b><span class="param-type">{T}</span> <span class="param-item">returns</span></b>: 克隆数据</li>
+      </ul>
+      <textarea id="code-deepClone">
+const data = [1,2,3];
+const data2 = window.zztool.deepClone(data);
+console.log(data == data2);
+console.log(data === data2);
+// false,false
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['deepClone'],'out-deepClone')">运行</button>
+      <iframe id="out-deepClone"></iframe>
+    </div>
+    <!-- getBetweenDate -->
+    <div class="box mb-6 expand" id="getBetweenDate">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getBetweenDate">#getBetweenDate 获取两个日期之间的日期</a> <button class="expand-btn" onclick="expand('getBetweenDate')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getBetweenDate(date: string, date1: string, days: boolean = false): string[] | number</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">date</span></b>: 数据</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">date1</span></b>: 数据</li>
+        <li><b><span class="param-type">{Boolean}</span> <span class="param-item">days</span></b>: 返回天数</li>
+      </ul>
+      <textarea id="code-getBetweenDate">
+console.log(zztool.getBetweenDate('2020-01-01', '2020-01-03')) // ['2020-01-01', '2020-01-02', '2020-01-03'];
+console.log(zztool.getBetweenDate('2023-01-01', '2023-01-03', true)) // 3;
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getBetweenDate'],'out-getBetweenDate')">运行</button>
+      <iframe id="out-getBetweenDate"></iframe>
+    </div>
+    <!-- getChar -->
+    <div class="box mb-6 expand" id="getChar">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getChar">#getChar 范围获取字符</a> <button class="expand-btn" onclick="expand('getChar')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getChar(str: string, start: number, end: number):string</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">str</span></b>: 字符串</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">start</span></b>: 开始位置</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">end</span></b>: 结束位置</li>
+        <li><b><span class="param-type">{number|string[]}</span> <span class="param-item">returns</span></b>: 返回值</li>
+      </ul>
+      <textarea id="code-getChar">
+console.log(zztool.getChar('123456', 1, 3)); // 23
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getChar'],'out-getChar')">运行</button>
+      <iframe id="out-getChar"></iframe>
+    </div>
+    <!-- getDate -->
+    <div class="box mb-6 expand" id="getDate">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getDate">#getDate 获取日期</a> <button class="expand-btn" onclick="expand('getDate')">展开</button> </h2>
+      <p class="text-sm text-orange-400 mb-2">如果只有一个参数，str会被当为type传递</p>
+      <p class="text-sm text-gray-600 mb-2"><code>getDate(str: any = "", type = "Y/M/D h:m:s"):string</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string|date|number}</span> <span class="param-item">str</span></b>: 数据</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">type</span></b>: 格式</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: 返回值</li>
+      </ul>
+      <textarea id="code-getDate">
+console.log(zztool.getDate()); // 2023/01/01 xx:xx:xx
+console.log(zztool.getDate('Y-M-D')); // 2023-01-01
+console.log(zztool.getDate('2023/1/1','Y-M-D')); // 2023-01-01
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getDate'],'out-getDate')">运行</button>
+      <iframe id="out-getDate"></iframe>
+    </div>
+    <!-- getDateInfo -->
+    <div class="box mb-6 expand" id="getDateInfo">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getDateInfo">#getDateInfo 获取日期信息</a> <button class="expand-btn" onclick="expand('getDateInfo')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getDateInfo(str: string | Date | number): DateInfo</code></p>
+      <p class="text-sm text-gray-600 mb-2"><code>interface DateInfo {year: string;month: string;day: string;hour: string;minute: string;second: string;}</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string|date|number}</span> <span class="param-item">str</span></b>: 日期</li>
+        <li><b><span class="param-type">{DateInfo}</span> <span class="param-item">returns</span></b>: 返回值</li>
+      </ul>
+      <textarea id="code-getDateInfo">
+console.log(zztool.getDateInfo());
+
+const timeStamp = zztool.getTimeStamp(); // 获取时间戳
+console.log(zztool.getDateInfo(timeStamp));
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getDateInfo'],'out-getDateInfo')">运行</button>
+      <iframe id="out-getDateInfo"></iframe>
+    </div>
+    <!-- getFirstChar -->
+    <div class="box mb-6 expand" id="getFirstChar">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getFirstChar">#getFirstChar 获取第一个字符</a> <button class="expand-btn" onclick="expand('getFirstChar')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getFirstChar(str: string):string</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">str</span></b>: 字符串</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: 第一个字符</li>
+      </ul>
+      <textarea id="code-getFirstChar">
+console.log(zztool.getFirstChar('YOuRHhH')); // Y
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getFirstChar'],'out-getFirstChar')">运行</button>
+      <iframe id="out-getFirstChar"></iframe>
+    </div>
+    <!-- getLastChar -->
+    <div class="box mb-6 expand" id="getLastChar">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getLastChar">#getLastChar 获取最后一个字符</a> <button class="expand-btn" onclick="expand('getLastChar')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getLastChar(str: string):string</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">str</span></b>: 字符串</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: 最后一个字符</li>
+      </ul>
+      <textarea id="code-getLastChar">
+console.log(zztool.getLastChar('YOuRHhH')); // H
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getLastChar'],'out-getLastChar')">运行</button>
+      <iframe id="out-getLastChar"></iframe>
+    </div>
+    <!-- getMonthDays -->
+    <div class="box mb-6 expand" id="getMonthDays">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getMonthDays">#getMonthDays 获取月份天数</a> <button class="expand-btn" onclick="expand('getMonthDays')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getMonthDays(year: number = new Date().getFullYear(), month: number = new Date().getMonth() + 1): number</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{number}</span> <span class="param-item">year</span></b>: 年</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">returns</span></b>: 月</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">returns</span></b>: 月天数</li>
+      </ul>
+      <textarea id="code-getMonthDays">
+console.log(zztool.getMonthDays()); // 30
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getMonthDays'],'out-getMonthDays')">运行</button>
+      <iframe id="out-getMonthDays"></iframe>
+    </div>
+    <!-- getPercentage -->
+    <div class="box mb-6 expand" id="getPercentage">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getPercentage">#getPercentage 计算百分比</a> <button class="expand-btn" onclick="expand('getPercentage')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getPercentage(part: number, total: number, decimalPlaces: number = 2): string</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{number}</span> <span class="param-item">part</span></b>: 当前值</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">total</span></b>: 总值</li>
+        <li><b><span class="param-type">?{number}</span> <span class="param-item">decimalPlaces</span></b>: 小数</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: 计算结果</li>
+      </ul>
+      <textarea id="code-getPercentage">
+console.log(zztool.getPercentage(2999, 9999)); // '50.00%'
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getPercentage'],'out-getPercentage')">运行</button>
+      <iframe id="out-getPercentage"></iframe>
+    </div>
+    <!-- getRandom -->
+    <div class="box mb-6 expand" id="getRandom">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getRandom">#getRandom 获取随机数</a> <button class="expand-btn" onclick="expand('getRandom')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getRandom(min: number, max: number): number</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{number}</span> <span class="param-item">min</span></b>: 最小值</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">max</span></b>: 最大值</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">returns</span></b>: 返回一个随机数</li>
+      </ul>
+      <textarea id="code-getRandom">
+console.log(zztool.getRandom(2999, 9999)); // xxxx
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getRandom'],'out-getRandom')">运行</button>
+      <iframe id="out-getRandom"></iframe>
+    </div>
+    <!-- getRandomArray -->
+    <div class="box mb-6 expand" id="getRandomArray">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getRandomArray">#getRandomArray 获取随机数</a> <button class="expand-btn" onclick="expand('getRandomArray')">展开</button> </h2>
+      <p class="text-sm text-orange-400 mb-2">真随机（可能出现相同值），并非假随机</p>
+      <p class="text-sm text-gray-600 mb-2"><code>getRandomArray(length: number, min: number, max: number): number[]</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{number}</span> <span class="param-item">length</span></b>: 长度</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">min</span></b>: 最小值</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">max</span></b>: 最大值</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">returns</span></b>: 生成的随机数组</li>
+      </ul>
+      <textarea id="code-getRandomArray">
+console.log(zztool.getRandomArray(5, 2999, 9999)); 
+// [x, x, x, x, x]
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getRandomArray'],'out-getRandomArray')">运行</button>
+      <iframe id="out-getRandomArray"></iframe>
+    </div>
+    <!-- getRandomColor -->
+    <div class="box mb-6 expand" id="getRandomColor">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getRandomColor">#getRandomColor 获取随机颜色</a> <button class="expand-btn" onclick="expand('getRandomColor')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getRandomColor():string</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: 生成的随机颜色</li>
+      </ul>
+      <textarea id="code-getRandomColor">
+const color = zztool.getRandomColor();
+console.log(color); 
+      </textarea>
+      <button id="run-btn-getRandomColor" class="run-btn" onclick="runJS(editors['getRandomColor'],'out-getRandomColor')">运行</button>
+      <iframe id="out-getRandomColor"></iframe>
+    </div>
+    <!-- getRandomIdcard -->
+    <div class="box mb-6 expand" id="getRandomIdcard">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getRandomIdcard">#getRandomIdcard 随机生成身份证号 <span style="color: #f00;">仅供学习</span></a> <button class="expand-btn" onclick="expand('getRandomIdcard')">展开</button> </h2>
+      <p class="text-sm text-orange-400 mb-2">生成的 ID code 可通过校验，并非真实身份证号，<span style="color: #f00;">仅供学习</span></p>
+      <p class="text-sm text-gray-600 mb-2"><code>getRandomIdcard():string</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: 随机生成身份证号</li>
+      </ul>
+      <textarea id="code-getRandomIdcard">
+const num = zztool.getRandomIdcard();
+const regIdcard = zztool.regIdcard(num);
+console.log(num); 
+console.log(regIdcard);
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getRandomIdcard'],'out-getRandomIdcard')">运行</button>
+      <iframe id="out-getRandomIdcard"></iframe>
+    </div>
+    <!-- getRandomRGBA -->
+    <div class="box mb-6 expand" id="getRandomRGBA">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getRandomRGBA">#getRandomRGBA 获取随机rgba颜色</a> <button class="expand-btn" onclick="expand('getRandomRGBA')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getRandomRGBA():string</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: rgba颜色</li>
+      </ul>
+      <textarea id="code-getRandomRGBA">
+console.log(zztool.getRandomRGBA());
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getRandomRGBA'],'out-getRandomRGBA')">运行</button>
+      <iframe id="out-getRandomRGBA"></iframe>
+    </div>
+    <!-- getRandomRGBColor -->
+    <div class="box mb-6 expand" id="getRandomRGBColor">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getRandomRGBColor">#getRandomRGBColor 获取随机rgb颜色</a> <button class="expand-btn" onclick="expand('getRandomRGBColor')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getRandomRGBColor():string</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: rgb颜色</li>
+      </ul>
+      <textarea id="code-getRandomRGBColor">
+console.log(zztool.getRandomRGBColor());
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getRandomRGBColor'],'out-getRandomRGBColor')">运行</button>
+      <iframe id="out-getRandomRGBColor"></iframe>
+    </div>
+    <!-- getRecentDate -->
+    <div class="box mb-6 expand" id="getRecentDate">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getRecentDate">#getRecentDate 获取某日期的近期天数</a> <button class="expand-btn" onclick="expand('getRecentDate')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getRecentDate({date = new Date(),step = 1,type = "before",format = "Y-M-D",option = { 1: 3, 2: 7, 3: 15, 4: 30 }}: RecentDate): string[]</code></p>
+      <p class="text-sm text-gray-600 mb-2"><code>interface RecentDate {date?: Date | string | number;step?: number;type?: "before" | "after";format?: string;option?: Record< number, number>;}</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{date | string | number}</span> <span class="param-item">date</span></b>: 日期</li>
+        <li><b><span class="param-type">{1 | 2 | 3 | 4}</span> <span class="param-item">step</span></b>: 步长</li>
+        <li><b><span class="param-type">{"before" | "after"}</span> <span class="param-item">type</span></b>: before | after</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">format</span></b>: 格式化格式，默认 "Y-M-D"</li>
+        <li><b><span class="param-type">{Record< number,number>}</span> <span class="param-item">option</span></b>: 步长对应天数</li>
+        <li><b><span class="param-type">{string[]}</span> <span class="param-item">returns</span></b>: 日期数组</li>
+      </ul>
+      <textarea id="code-getRecentDate">
+const option = { 1: 3, 2: 2, 3: 3, 4: 10, 5: 1 }
+console.log(zztool.getRecentDate(new Date(), 1, "before", "Y-M-D", option));
+console.log(zztool.getRecentDate(new Date(), 2, "before", "Y-M-D", option));
+console.log(zztool.getRecentDate(new Date(), 4, "before", "Y-M-D", option));
+console.log(zztool.getRecentDate(new Date(), 5, "before", "Y-M-D", option));
+
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getRecentDate'],'out-getRecentDate')">运行</button>
+      <iframe id="out-getRecentDate"></iframe>
+    </div>
+    <!-- getSameIndexValue -->
+    <div class="box mb-6 expand" id="getSameIndexValue">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getSameIndexValue">#getSameIndexValue 获取所有索引的值</a> <button class="expand-btn" onclick="expand('getSameIndexValue')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getSameIndexValue(obj: any,index: string,parentKey: string = ""): Array<{ key: string; value: any }></code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{*}</span> <span class="param-item">obj</span></b>: 数据</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">index</span></b>: 索引</li>
+        <li><b><span class="param-type">?{string}</span> <span class="param-item">parentKey</span></b>: 父级key</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: rgb颜色</li>
+      </ul>
+      <textarea id="code-getSameIndexValue">
+console.log(zztool.getSameIndexValue({ a: { b: { c: 1 },c:'233' } },'c'));
+ // [{ key: "a.b.c", value: 1 },{ key: "a.c", value: "233" }]
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getSameIndexValue'],'out-getSameIndexValue')">运行</button>
+      <iframe id="out-getSameIndexValue"></iframe>
+    </div>
+    <!-- getTimeStamp -->
+    <div class="box mb-6 expand" id="getTimeStamp">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getTimeStamp">#getTimeStamp 获取时间戳</a> <button class="expand-btn" onclick="expand('getTimeStamp')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getTimeStamp(date: any = new Date(), mill: boolean = true): number</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">?{*}</span> <span class="param-item">date</span></b>: 数据</li>
+        <li><b><span class="param-type">?{boolean}</span> <span class="param-item">mill</span></b>: 是否返回毫秒级时间戳</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">returns</span></b>: 时间戳</li>
+      </ul>
+      <textarea id="code-getTimeStamp">
+console.log(zztool.getTimeStamp());
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getTimeStamp'],'out-getTimeStamp')">运行</button>
+      <iframe id="out-getTimeStamp"></iframe>
+    </div>
+    <!-- getTimeStep -->
+    <div class="box mb-6 expand" id="getTimeStep">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getTimeStep">#getTimeStep 获取时间段</a> <button class="expand-btn" onclick="expand('getTimeStep')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getTimeStep(start: string,end: string,step: string = "01:00",type: string = "hh:mm"):string[]</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">start</span></b>: 开始时间</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">end</span></b>: 结束时间</li>
+        <li><b><span class="param-type">?{string}</span> <span class="param-item">end</span></b>: 结束时间</li>
+        <li><b><span class="param-type">?{string}</span> <span class="param-item">end</span></b>: 结束时间</li>
+        <li><b><span class="param-type">{string[]}</span> <span class="param-item">returns</span></b>: 时间段</li>
+      </ul>
+      <textarea id="code-getTimeStep">
+console.log(zztool.getTimeStep('08:00', '10:00', '01:00', 'hh:mm'));// ["08:00", "09:00", "10:00"]
+console.log(zztool.getTimeStep('08:00', '10:00', '01:00', 'hh:mm:ss'));// ["08:00:00", "09:00:00", "10:00:00"];
+console.log(zztool.getTimeStep('00:00', '24:00'));
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getTimeStep'],'out-getTimeStep')">运行</button>
+      <iframe id="out-getTimeStep"></iframe>
+    </div>
+    <!-- getType -->
+    <div class="box mb-6 expand" id="getType">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getType">#getType 获取类型</a> <button class="expand-btn" onclick="expand('getType')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getType(data: any)</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">data</span></b>: 数据</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: 类型</li>
+      </ul>
+      <textarea id="code-getType">
+console.log(zztool.getType(''));// string
+console.log(zztool.getType({}));// object
+console.log(zztool.getType([]));// array
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getType'],'out-getType')">运行</button>
+      <iframe id="out-getType"></iframe>
+    </div>
+    <!-- getUrlParam -->
+    <div class="box mb-6 expand" id="getUrlParam">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getUrlParam">#getUrlParam 获取url参数</a> <button class="expand-btn" onclick="expand('getUrlParam')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getUrlParam< T extends Record< string,any> = Record< string, string>>(url = ""):T</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">?{string}</span> <span class="param-item">url</span></b>: 链接</li>
+        <li><b><span class="param-type">{T}</span> <span class="param-item">returns</span></b>: 参数</li>
+      </ul>
+      <textarea id="code-getUrlParam">
+console.log(zztool.getUrlParam());
+// 会获取本地url进行解析参数
+console.log(zztool.getUrlParam('?name=tom&age=18'));
+// {"name": "tom","age": "18"}
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getUrlParam'],'out-getUrlParam')">运行</button>
+      <iframe id="out-getUrlParam"></iframe>
+    </div>
+    <!-- getValue -->
+    <div class="box mb-6 expand" id="getValue">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getValue">#getValue 获取索引值</a> <button class="expand-btn" onclick="expand('getValue')">展开</button> </h2>
+      <p class="text-sm text-orange-400 mb-2">仅适用于对象嵌套，支持以下形式：</p>
+      <p class="text-sm text-orange-400 mb-2">'xxx.xxx.xxx', 'xxx[0].yyy', [xxx, xxx, xxx]</p>
+      <p class="text-sm text-gray-600 mb-2"><code>getValue(obj: any, path: any): any</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{*}</span> <span class="param-item">obj</span></b>: 目标对象</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">path</span></b>: 访问路径</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">returns</span></b>: 目标值或空字符串</li>
+      </ul>
+      <textarea id="code-getValue">
+console.log(zztool.getValue({ a: { b: { c: "d" } } }, "a.b.c")); // d
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getValue'],'out-getValue')">运行</button>
+      <iframe id="out-getValue"></iframe>
+    </div>
+    <!-- getWeekDay -->
+    <div class="box mb-6 expand" id="getWeekDay">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getWeekDay">#getWeekDay 获取日期是星期几</a> <button class="expand-btn" onclick="expand('getWeekDay')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getWeekDay(date: any = new Date())</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{*}</span> <span class="param-item">date</span></b>: 日期</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">returns</span></b>: 星期X</li>
+      </ul>
+      <textarea id="code-getWeekDay">
+console.log(zztool.getWeekDay(new Date())); // 星期X
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getWeekDay'],'out-getWeekDay')">运行</button>
+      <iframe id="out-getWeekDay"></iframe>
+    </div>
+    <!-- getWeekTime -->
+    <div class="box mb-6 expand" id="getWeekTime">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#getWeekTime">#getWeekTime 获取周的日期列表</a> <button class="expand-btn" onclick="expand('getWeekTime')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>getWeekTime(date: any = new Date()): string[]</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{*}</span> <span class="param-item">date</span></b>: 日期</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">returns</span></b>: 周的所有日期（从周一开始）</li>
+      </ul>
+      <textarea id="code-getWeekTime">
+console.log(zztool.getWeekTime());
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['getWeekTime'],'out-getWeekTime')">运行</button>
+      <iframe id="out-getWeekTime"></iframe>
+    </div>
+    <!-- moneyFormat -->
+    <div class="box mb-6 expand" id="moneyFormat">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#moneyFormat">#moneyFormat 金额格式化</a> <button class="expand-btn" onclick="expand('moneyFormat')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>moneyFormat(money: string | number, char = ",", first = ""):string</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string|number}</span> <span class="param-item">money</span></b>: 金额</li>
+        <li><b><span class="param-type">?{string}</span> <span class="param-item">char</span></b>: 分隔符</li>
+        <li><b><span class="param-type">?{string}</span> <span class="param-item">first</span></b>: 首字符</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: 格式化金额</li>
+      </ul>
+      <textarea id="code-moneyFormat">
+console.log(zztool.moneyFormat(123456789));
+// 123,456,789
+console.log(zztool.moneyFormat(123456789, "~", "￥"));
+// ￥123~456~789
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['moneyFormat'],'out-moneyFormat')">运行</button>
+      <iframe id="out-moneyFormat"></iframe>
+    </div>
+    <!-- paramformat -->
+    <div class="box mb-6 expand" id="paramformat">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#paramformat">#paramformat 参数格式化</a> <button class="expand-btn" onclick="expand('paramformat')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>paramformat(obj: any, type:paramType = "url"):string|FormData</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{*}</span> <span class="param-item">obj</span></b>: 数据</li>
+        <li><b><span class="param-type">{url|json|FormData}</span> <span class="param-item">type</span></b>: 类型</li>
+        <li><b><span class="param-type">{string|FormData}</span> <span class="param-item">returns</span></b>: 格式化参数</li>
+      </ul>
+      <textarea id="code-paramformat">
+console.log(zztool.paramformat({ a: 1, b: 2 }, "url"));
+// a=1&b=2
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['paramformat'],'out-paramformat')">运行</button>
+      <iframe id="out-paramformat"></iframe>
+    </div>
+    <!-- regEmail -->
+    <div class="box mb-6 expand" id="regEmail">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#regEmail">#regEmail 校验邮箱</a> <button class="expand-btn" onclick="expand('regEmail')">展开</button> </h2>
+      <p class="text-sm text-orange-400 mb-2">校验规则：/^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@([a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,63}$/</p>
+      <p class="text-sm text-gray-600 mb-2"><code>regEmail(str: string)</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">str</span></b>: 邮箱</li>
+        <li><b><span class="param-type">{boolean}</span> <span class="param-item">returns</span></b>: 返回值</li>
+      </ul>
+      <textarea id="code-regEmail">
+console.log(zztool.regEmail('test@example.com'));
+// true
+console.log(zztool.regEmail('test1example.com'));
+// false
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['regEmail'],'out-regEmail')">运行</button>
+      <iframe id="out-regEmail"></iframe>
+    </div>
+    <!-- regIdcard -->
+    <div class="box mb-6 expand" id="regIdcard">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#regIdcard">#regIdcard 校验身份证号</a> <button class="expand-btn" onclick="expand('regIdcard')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>regIdcard(str: string):boolean</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">str</span></b>: 身份证号</li>
+        <li><b><span class="param-type">{boolean}</span> <span class="param-item">returns</span></b>: 返回值</li>
+      </ul>
+      <textarea id="code-regIdcard">
+console.log(zztool.regIdcard('3301031110DF001011234'));
+// false
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['regIdcard'],'out-regIdcard')">运行</button>
+      <iframe id="out-regIdcard"></iframe>
+    </div>
+    <!-- regPhone -->
+    <div class="box mb-6 expand" id="regPhone">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#regPhone">#regPhone 校验手机号</a> <button class="expand-btn" onclick="expand('regPhone')">展开</button> </h2>
+      <p class="text-sm text-orange-400 mb-2">校验规则：/^1[3456789]\d{9}$/</p>
+      <p class="text-sm text-gray-600 mb-2"><code>regPhone(str: string): boolean</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">str</span></b>: 手机号</li>
+        <li><b><span class="param-type">{boolean}</span> <span class="param-item">returns</span></b>: 返回值</li>
+      </ul>
+      <textarea id="code-regPhone">
+console.log(zztool.regPhone('3301031110DF001011234'));
+// false
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['regPhone'],'out-regPhone')">运行</button>
+      <iframe id="out-regPhone"></iframe>
+    </div>
+    <!-- shuffleArray -->
+    <div class="box mb-6 expand" id="shuffleArray">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#shuffleArray">#shuffleArray 打乱数组</a> <button class="expand-btn" onclick="expand('shuffleArray')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>shuffleArray<T>(array: T[]): T[]</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{array}</span> <span class="param-item">array</span></b>: 数组</li>
+        <li><b><span class="param-type">{array}</span> <span class="param-item">returns</span></b>: 返回值</li>
+      </ul>
+      <textarea id="code-shuffleArray">
+const arr = [1,2,3,4,5,6,7,8,9,10];
+console.log(zztool.shuffleArray(arr));
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['shuffleArray'],'out-shuffleArray')">运行</button>
+      <iframe id="out-shuffleArray"></iframe>
+    </div>
+    <!-- sleep -->
+    <div class="box mb-6 expand" id="sleep">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#sleep">#sleep 延迟函数</a> <button class="expand-btn" onclick="expand('sleep')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>sleep(ms: number): Promise< void></code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{number}</span> <span class="param-item">ms</span></b>: 延迟时间（ms）</li>
+        <li><b><span class="param-type">{Promise< void>}</span> <span class="param-item">returns</span></b>: 返回值</li>
+      </ul>
+      <textarea id="code-sleep">
+async function init() {
+  console.log('start');
+  await zztool.sleep(1000);
+  console.log('end');
+}
+init();
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['sleep'],'out-sleep')">运行</button>
+      <iframe id="out-sleep"></iframe>
+    </div>
+    <!-- storage -->
+    <div class="box mb-6 expand" id="storage">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#storage">#storage 本地存储</a> <button class="expand-btn" onclick="expand('storage')">展开</button> </h2>
+      <p class="text-sm text-orange-400 mb-2"><code>都支持多层操作</code></p>
+      <p class="text-sm text-gray-600 mb-2"><code>getStorage = (key: string): any</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">key</span></b>: 键</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">returns</span></b>: 值</li>
+      </ul>
+      <p class="text-sm text-gray-600 mb-2"><code>setStorage = (key: string, val: any)</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">key</span></b>: 键</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">val</span></b>: 值</li>
+      </ul>
+      <p class="text-sm text-gray-600 mb-2"><code>removeStorage = (key: string)</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">key</span></b>: 键</li>
+      </ul>
+      <textarea id="code-storage">
+zztool.setStorage('person', {});
+zztool.setStorage('person.age', '18');
+zztool.setStorage('person.name', 'Tom');
+console.log('person:',zztool.getStorage('person'));
+console.log('age:',zztool.getStorage('person.age'));
+console.log('name:',zztool.getStorage('person.name'));
+zztool.removeStorage('person.age');
+console.log('移出person.age')
+console.log('person:',zztool.getStorage('person'));
+zztool.removeStorage('person');
+console.log('移出person')
+console.log('person:',zztool.getStorage('person'));
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['storage'],'out-storage')">运行</button>
+      <iframe id="out-storage"></iframe>
+    </div>
+    <!-- stripEmpty -->
+    <div class="box mb-6 expand" id="stripEmpty">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#stripEmpty">#stripEmpty 移出对象中的空属性</a> <button class="expand-btn" onclick="expand('stripEmpty')">展开</button> </h2>
+      <p class="text-sm text-orange-400 mb-2"><code>内部使用 `arrayTrime` 函数过滤数组中的空项</code></p>
+      <p class="text-sm text-gray-600 mb-2"><code>stripEmpty(obj: any,option?:{filterArray: boolean}): any</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{*}</span> <span class="param-item">obj</span></b>: 对象</li>
+        <li><b><span class="param-type">{Object}</span> <span class="param-item">option</span></b>: 配置项</li>
+        <li><b><span class="param-type">{Boolean}</span> <span class="param-item">option.filterArray</span></b>: 默认`true` 是否过滤数组中的空项</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">returns</span></b>: 值</li>
+      </ul>
+      <textarea id="code-stripEmpty">
+const obj = { a: 1, d:'',z:{a:1,b:'',xx:{},zz:[]}};
+console.log(zztool.stripEmpty(obj))
+// {a:1,z:{a:1}
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['stripEmpty'],'out-stripEmpty')">运行</button>
+      <iframe id="out-stripEmpty"></iframe>
+    </div>
+    <!-- strReplace -->
+    <div class="box mb-6 expand" id="strReplace">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#strReplace">#strReplace 字符串替换</a> <button class="expand-btn" onclick="expand('strReplace')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>strReplace(str:string, start:number, end:number,icon='*'):string</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{string}</span> <span class="param-item">str</span></b>: 字符串</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">start</span></b>: 开始位置</li>
+        <li><b><span class="param-type">{number}</span> <span class="param-item">end</span></b>: 结束位置</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">icon</span></b>: 替换字符</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">returns</span></b>: 替换后的字符串</li>
+      </ul>
+      <textarea id="code-strReplace">
+console.log(zztool.strReplace('123456789', 3, 6))
+// 123***789
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['strReplace'],'out-strReplace')">运行</button>
+      <iframe id="out-strReplace"></iframe>
+    </div>
+    <!-- toTree -->
+    <div class="box mb-6 expand" id="toTree">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#toTree">#toTree 转树形结构</a> <button class="expand-btn" onclick="expand('toTree')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>toTree(data: any[], pid: string, options: Options = {}): any[]</code></p>
+      <p class="text-sm text-gray-600 mb-2"><code>type Options = {children?: string,pidVal?: string | number}</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{array}</span> <span class="param-item">data</span></b>: 数组</li>
+        <li><b><span class="param-type">{string}</span> <span class="param-item">pid</span></b>: 父级字段</li>
+        <li><b><span class="param-type">?{object}</span> <span class="param-item">options</span></b>: 配置项</li>
+        <li><b><span class="param-type">?{string}</span> <span class="param-item">options.children</span></b>: 子级key名</li>
+        <li><b><span class="param-type">?{string | number}</span> <span class="param-item">options.pidVal</span></b>: 父级字段值</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">returns</span></b>: 数组</li>
+      </ul>
+      <textarea id="code-toTree">
+const obj = [{ id: 1, pid: 0 }, { id: 2, pid: 1 }, { id: 3, pid: 1 }]
+console.log(zztool.toTree(obj, 'pid'))
+// [{ id: 1, pid: 0, children: [{ id: 2, pid: 1 }, { id: 3, pid: 1 }] }]
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['toTree'],'out-toTree')">运行</button>
+      <iframe id="out-toTree"></iframe>
+    </div>
+    <!-- uniqueArray -->
+    <div class="box mb-6 expand" id="uniqueArray">
+      <h2 class="head text-xl font-semibold mb-2 flex justify-between"> <a href="#uniqueArray">#uniqueArray 数组去重</a> <button class="expand-btn" onclick="expand('uniqueArray')">展开</button> </h2>
+      <p class="text-sm text-gray-600 mb-2"><code>uniqueArray(data: any[], pid: string, options: Options = {}): any[]</code></p>
+      <p class="text-sm text-gray-600 mb-2"><code>type Options = {children?: string,pidVal?: string | number}</code></p>
+      <ul class="text-sm text-gray-500 mb-4 list-disc list-inside">
+        <li><b><span class="param-type">{array}</span> <span class="param-item">data</span></b>: 数组</li>
+        <li><b><span class="param-type">{*}</span> <span class="param-item">returns</span></b>: 去重数组</li>
+      </ul>
+      <textarea id="code-uniqueArray">
+const arr = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5]
+console.log(zztool.uniqueArray(arr))
+// [1, 2, 3, 4, 5]
+      </textarea>
+      <button class="run-btn" onclick="runJS(editors['uniqueArray'],'out-uniqueArray')">运行</button>
+      <iframe id="out-uniqueArray"></iframe>
+    </div>
+  </div>
+  <div id="moveBox" class="moveBox" onclick="moveBoxClick()">
+    <span>菜单</span>
+  </div>
+  <div id="menu" class="menu none" onclick="menuclick()">
+    <h1>校验</h1>
+    <a href="#regEmail">regEmail</a>
+    <a href="#regIdcard">regIdcard</a>
+    <a href="#regPhone">regPhone</a>
+    <h1>数据操作</h1>
+    <a href="#arrayTrim">arrayTrim</a>
+    <a href="#chunkArray">chunkArray</a>
+    <a href="#chunkArrayItem">chunkArrayItem</a>
+    <a href="#dataAllEmpty">dataAllEmpty</a>
+    <a href="#dataChangeAllIndex">dataChangeAllIndex</a>
+    <a href="#dataChangeIndex">dataChangeIndex</a>
+    <a href="#dataEqual">dataEqual</a>
+    <a href="#dataFind">dataFind</a>
+    <a href="#deepClone">deepClone</a>
+    <a href="#dataMerge">dataMerge</a>
+    <a href="#getRandom">getRandom</a>
+    <a href="#getRandomArray">getRandomArray</a>
+    <a href="#moneyFormat">moneyFormat</a>
+    <a href="#paramformat">paramformat</a>
+    <a href="#stripEmpty">stripEmpty</a>
+    <a href="#strReplace">strReplace</a>
+    <a href="#toTree">toTree</a>
+    <a href="#uniqueArray">uniqueArray</a>
+    <h1>日期操作</h1>
+    <a href="#getDate">getDate</a>
+    <a href="#getDateInfo">getDateInfo</a>
+    <a href="#getMonthDays">getMonthDays</a>
+    <h1>数据获取</h1>
+    <a href="#getRandomColor">getRandomColor</a>
+    <a href="#getRandomIdcard">getRandomIdcard</a>
+    <a href="#getRandomRGBA">getRandomRGBA</a>
+    <a href="#getRandomRGBColor">getRandomRGBColor</a>
+    <a href="#getSameIndexValue">getSameIndexValue</a>
+    <a href="#getBetweenDate">getBetweenDate</a>
+    <a href="#getTimeStamp">getTimeStamp</a>
+    <a href="#getTimeStep">getTimeStep</a>
+    <a href="#getType">getType</a>
+    <a href="#getUrlParam">getUrlParam</a>
+    <a href="#getValue">getValue</a>
+    <a href="#getRecentDate">getRecentDate</a>
+    <a href="#getWeekDay">getWeekDay</a>
+    <a href="#getWeekTime">getWeekTime</a>
+    <a href="#getChar">getChar</a>
+    <a href="#getFirstChar">getFirstChar</a>
+    <a href="#getLastChar">getLastChar</a>
+    <h1>函数工具</h1>
+    <a href="#debounce">debounce</a>
+    <a href="#throttle">throttle</a>
+    <a href="#shuffleArray">shuffleArray</a>
+    <a href="#sleep">sleep</a>
+    <a href="#storage">storage</a>
+    <h1>计算</h1>
+    <a href="#getPercentage">getPercentage</a>
+  </div>
+  <script>
+    const menu = document.querySelector('#menu');
+    // 给moveBox添加拖拽事件
+    function addMoveBoxEvent(){
+      const moveBox = document.querySelector('.moveBox');
+      let startX = 0;
+      let startY = 0;
+      function moveFn(e){
+        document.body.style.userSelect = 'none';
+        moveBox.style.cursor = 'move';
+        const endX = e.clientX;
+        const endY = e.clientY;
+        const dx = endX - startX;
+        const dy = endY - startY;
+        moveBox.style.left = `${moveBox.offsetLeft + dx}px`;
+        moveBox.style.top = `${moveBox.offsetTop + dy}px`;
+        startX = endX;
+        startY = endY;
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      function upFn(){
+        document.body.style.userSelect = 'auto';
+        document.removeEventListener('mousemove', moveFn);
+        document.removeEventListener('mouseup', upFn);
+      }
+      moveBox.addEventListener('mousedown', (e) => { 
+        startX = e.clientX;
+        startY = e.clientY;
+        document.addEventListener('mousemove', moveFn);
+        document.addEventListener('mouseup', upFn);
+      });
+    }
+    // addMoveBoxEvent()
+    function menuclick(){
+      menu.classList.remove('block'); 
+      menu.classList.add('none'); 
+    }
+    function moveBoxClick(){
+      menu.classList.remove('none'); 
+      menu.classList.add('block')
+    }
+  </script>
+  <script>
+    window.addEventListener("hashchange", function () {
+      const hash = location.hash.slice(1);
+      if (!hash) return;
+      const dom = document.getElementById(hash);
+      if (!dom) return;
+      dom.classList.add("active");
+      setTimeout(() => {
+        dom.classList.remove("active");
+      }, 1500);
+    });
+    window.addEventListener("DOMContentLoaded", () => {
+      const hash = location.hash.slice(1);
+      if (!hash) return;
+      expand(hash)
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        el.scrollIntoView({behavior: "smooth"});
+      }, 100);
+    });
+  </script>
+  <script>
+    // 初始化 CodeMirror 编辑器
+    const editors = {};
+    [
+      'arrayTrim','chunkArray','getBetweenDate',
+      'chunkArrayItem','dataAllEmpty',
+      'dataChangeAllIndex','dataChangeIndex',
+      'dataEqual','dataFind', 'deepClone',
+      'dataMerge','debounce','throttle',
+      'getChar','getDate','getDateInfo','getFirstChar','getLastChar',
+      'getMonthDays','getPercentage','getRandom','getRandomArray',
+      'getRandomColor','getRandomIdcard','getRandomRGBA',
+      'getRandomRGBColor','getSameIndexValue','getTimeStamp',
+      'getTimeStep','getType','getUrlParam','getValue',
+      'getRecentDate','getWeekDay','getWeekTime','moneyFormat',
+      'paramformat','regEmail','regIdcard','regPhone',
+      'shuffleArray','sleep','storage','stripEmpty','strReplace',
+      'toTree','uniqueArray'
+
+    ].forEach(id => {
+      const ta = document.getElementById('code-'+id);
+      editors[id] = CodeMirror.fromTextArea(ta, {
+        mode: "javascript",
+        theme: "default",
+        lineNumbers: true,
+        indentUnit: 2,
+        tabSize: 2,
+      });
+      editors[id].setSize("100%", 'auto');
+    });
+
+    // 运行代码：将编辑器内容写入 iframe
+    function runJS(editor, outId) {
+      const code = editor.getValue();
+      const iframe = document.getElementById(outId);
+
+      const html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8" />
+          <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest"><\/script>
+        </head>
+        <body>
+          <pre id="result"></pre>
+          <script>
+            const outEl = document.getElementById('result');
+            const oldLog = console.log;
+            console.log = (...args) => {
+              const text = args.map(a=>{
+                try { return typeof a==='object'?JSON.stringify(a,null,2):String(a);}
+                catch(e){ return String(a);}
+              }).join(' ');
+              outEl.textContent += text + '\\n';
+              oldLog.apply(console,args);
+            };
+            try {
+              ${code}
+            } catch(e) {
+              outEl.textContent += '错误: '+e.toString();
+            }
+          <\/script>
+        <\/body>
+        \</html>
+      `;
+
+      iframe.srcdoc = html;
+    }
+    function expand(Elid){
+      const El = document.getElementById(Elid);
+      El.classList.toggle('expand');
+      // setTimeout(() => {
+      //   const el = document.getElementById(Elid);
+      //   el.scrollIntoView({behavior: "smooth"});
+      // }, 100);
+    }
+  </script>
+</body>
 </html>
