@@ -1,0 +1,28 @@
+---
+title: "深度重命名键 deepRenameKey"
+description: "deepRenameKey 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>修改对象中的下标</p>
+<br/>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+<CodeRunner code={`
+const data = zztool.deepRenameKey({ a: { b: { c: 1 },c:1 } }, "c", "xxx") 
+// { a: { b: { xxx: 1 },xxx:1 } }
+console.log(data)
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *Object* | ✅ | - |
+| *oldIndex* | *旧键名* | *String* | ✅ | - |
+| *newKey* | *新键名* | *String* | ✅ | - |
+
+### 返回值
+修改后的数据

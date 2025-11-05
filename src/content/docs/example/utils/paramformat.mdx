@@ -1,0 +1,36 @@
+---
+title: "参数格式化 paramformat"
+description: "paramformat 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>参数格式化</p>
+<br/>
+> <p>参数格式化 node环境需要引入 `form-data` 包</p>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+
+<CodeRunner code={`
+console.log(zztool.paramformat({ a: 1, b: 2 }, "url")); // a=1&b=2
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *Function* | *✅* | *-* |
+| *type* | *类型* | *Enum* | *✅* | *url* |
+
+```java
+interface type { 
+  url: string,
+  json: string,
+  formData: string
+}
+```
+
+
+### 返回值
+返回值

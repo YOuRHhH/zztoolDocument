@@ -1,0 +1,156 @@
+---
+const { code: initialCode } = Astro.props;
+---
+
+<div class="code-runner">
+  <textarea style="max-height: 500px;" id="codeArea">{initialCode}</textarea>
+  <div class="code-runner-buttons">
+    <button class="run" onclick="runCode()">Run</button>
+    <button class="reset" onclick="resetCode()">Reset</button>
+  </div>
+  <pre style="max-height: 500px;overflow:auto;" id="output"></pre>
+</div>
+
+<script>
+const outputEl = document.getElementById("output");
+const textarea = document.getElementById("codeArea");
+let editor;
+const initialCodeText = textarea.value;
+
+// 动态加载 CSS
+const link = document.createElement("link");
+link.rel = "stylesheet";
+link.href = "https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.css";
+document.head.appendChild(link);
+const link1 = document.createElement("link");
+link1.rel = "stylesheet";
+link1.href = "https://cdn.jsdelivr.net/npm/codemirror@5.65.16/theme/dracula.css";
+document.head.appendChild(link1);
+
+// 动态加载 CodeMirror JS
+const script = document.createElement("script");
+script.src = "https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.js";
+script.onload = () => {
+  const jsMode = document.createElement("script");
+  jsMode.src = "https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/javascript/javascript.js";
+  jsMode.onload = initEditor;
+  document.head.appendChild(jsMode);
+};
+
+document.head.appendChild(script);
+
+function initEditor() {
+  editor = CodeMirror.fromTextArea(textarea, {
+    mode: "javascript",
+    lineNumbers: true,
+    theme: "dracula",
+    tabSize: 2,
+    viewportMargin: Infinity
+  });
+  const cmEl = editor.getWrapperElement();
+  cmEl.style.height = 'auto';
+  // cmEl.style.maxHeight = '500px';
+}
+
+// 挂全局函数，按钮可以调用
+window.runCode = () => {
+  if (!editor) return;
+  outputEl.textContent = "";
+  try {
+    const oldLog = console.log;
+    console.log = (...args) => {
+      const text = args.map(a => (typeof a === "object" ? JSON.stringify(a, null, 2) : String(a))).join(" ");
+      outputEl.textContent += text + "\n";
+      oldLog.apply(console, args);
+    };
+    new Function(editor.getValue())();
+    console.log = oldLog;
+  } catch (e) {
+    outputEl.textContent += "错误: " + e.toString() + "\n";
+  }
+};
+
+window.resetCode = () => {
+  if (!editor) return;
+  editor.setValue(initialCodeText);
+  outputEl.textContent = "";
+};
+</script>
+
+<style>
+.code-runner{
+  margin-top: 20px;
+}
+.code-runner-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+/* 公共按钮样式 */
+.code-runner-buttons button {
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Run 按钮：蓝色霓虹 + 光泽滑动 */
+.run {
+  background: #4f46e5;
+  color: #fff;
+}
+.run::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255,255,255,0.2);
+  transform: rotate(25deg) translateX(-100%);
+  transition: transform 0.5s ease;
+}
+.run:hover::after {
+  transform: rotate(25deg) translateX(100%);
+}
+.run:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(79,70,229,0.5);
+}
+.run:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 4px 12px rgba(79,70,229,0.3);
+}
+
+/* Reset 按钮：玻璃感 + 边框 + 微光效果 */
+.reset {
+  background: rgba(255,255,255,0.1);
+  border: 2px solid #ef4444;
+  color: #ef4444;
+  backdrop-filter: blur(8px);
+}
+.reset:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(239,68,68,0.35);
+}
+.reset:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 4px 12px rgba(239,68,68,0.25);
+}
+
+/* 这块会影响代码错位 */
+:root{
+  --sl-content-gap-y: 0;
+}
+
+</style>

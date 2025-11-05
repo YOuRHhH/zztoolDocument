@@ -1,0 +1,36 @@
+---
+title: "延迟函数 sleep"
+description: "sleep 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>延迟函数</p>
+<br/>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+
+<CodeRunner code={`
+{/* 因输出显示问题，请查看控制台输出 */}
+async function test(){
+  console.log(1);
+  await zztool.sleep(1000);
+  console.log(2);
+}
+test()
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *ms* | *时间* | *Number* | *✅* | *-* |
+{/* | *index* | *索引* | *String* | *✅* | *-* | */}
+{/* | *newIndex* | *索引* | *String* | *✅* | *-* | */}
+{/* | *format* | *格式* | *String* | *❌* | *hh:mm* | */}
+
+
+
+### 返回值
+返回值

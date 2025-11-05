@@ -1,0 +1,32 @@
+---
+title: "路径修改下标 renameKeysByPath"
+description: "renameKeysByPath 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>路径修改下标</p>
+<br/>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+
+<CodeRunner code={`
+const resolve1 = zztool.renameKeysByPath({ a: { b: { c: 1 },c:1 } }, "a.c,a.b.c", "a.xxx,a.b.xxx") 
+// { a: { b: { xxx: 1 }, xxx:1 } }
+console.log(resolve1)
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *Object* | *✅* | *-* |
+| *index* | *索引* | *String* | *✅* | *-* |
+| *newIndex* | *索引* | *String* | *✅* | *-* |
+{/* | *format* | *格式* | *String* | *❌* | *hh:mm* | */}
+
+
+
+### 返回值
+返回值

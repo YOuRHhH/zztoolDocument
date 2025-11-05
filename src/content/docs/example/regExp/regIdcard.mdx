@@ -1,0 +1,33 @@
+---
+title: "校验身份证 regIdcard"
+description: "regIdcard 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>判断是否为身份证</p>
+<br/>
+> <p>不校验地区码</p>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+
+<CodeRunner code={`
+const resolve1 = zztool.regIdcard('330103111000001011234'); // false
+const resolve2 = zztool.regIdcard(zztool.getRandomIdcard()); // true
+console.log(resolve1,resolve2)
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *身份证号* | *String* | *✅* | *-* |
+{/* | *index* | *索引* | *String* | *✅* | *-* | */}
+{/* | *first* | *首字符* | *String* | *❌* | *空字符* | */}
+{/* | *format* | *格式* | *String* | *❌* | *hh:mm* | */}
+
+
+
+### 返回值
+返回值

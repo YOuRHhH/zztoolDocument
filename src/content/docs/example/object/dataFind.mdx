@@ -1,0 +1,32 @@
+---
+title: "数据查找 dataFind"
+description: "dataFind 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>根据某个字段查询同级所有字段</p>
+<br/>
+> 找到会返回第一个匹配项，且只会返回第一个匹配项
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+<CodeRunner code={`
+const findData = zztool.dataFind({ a: 1, b: { c: 2 , d: 3} }, 'c', 2); // { c: 2, d: 3 }
+console.log(findData);
+const findData1 = zztool.dataFind({ a: 1, b: { c: 2 , d: 3} }, 'c', 4); // []
+console.log(findData1);
+const findData2 = zztool.dataFind([1,2,3,4,5,[6,7,8]], '0', 6); // [6,7,8]
+console.log(findData2);
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *Object \| Array* | ✅ | - |
+| *key* | *要匹配的字段* | String | ✅ | - |
+| *value* | *目标值* | *\** | ✅ | - |
+
+### 返回值
+返回同级所有数据 否则返回`[]`

@@ -1,0 +1,26 @@
+---
+title: "数组分块项 chunkArrayItem"
+description: "chunkArrayItem 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>数组分块 将数组分成每块为size大小</p>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+<CodeRunner code={`
+const arr = [1,2,3,4,5,6,7,8,9,10];
+const newArr = zztool.chunkArrayItem(arr, 3); // [[1,2,3], [4,5,6], [7,8,9], [10]]
+console.log(newArr);
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *Array* | ✅ | - |
+| *size* | *分割的数组大小* | *Number* | ✅ | - |
+
+### 返回值
+返回一个分组后的数据

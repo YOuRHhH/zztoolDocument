@@ -1,0 +1,43 @@
+---
+title: "🚀 使用"
+description: "@zzcpt/zztool 使用"
+---
+
+import CodeRunner from "../../../components/CodeRunner.astro"
+
+{/* <head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head> */}
+
+## CND 引入使用
+<br />
+```javascript
+<script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js">
+</script>
+```
+<br />
+下面的示例可以编辑代码、运行并显示输出：
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+  </head>
+  <body>
+    <CodeRunner code={`
+const arr = [null,{},[],0,false,'',,{abc:123}];
+const newArr = zztool.arrayTrim(arr); // [0,false,{abc:123}]]
+console.log(newArr);
+`} />
+  </body>
+</html>
+
+
+## 依赖包引入使用
+<br />
+``` javascript
+import { arrayTrim } from "@zzcpt/zztool";
+
+const arr = [null,{},[],0,false,'',,{abc:123}];
+const newArr = zztool.arrayTrim(arr); // [0,false,{abc:123}]]
+console.log(newArr);
+```
+

@@ -1,0 +1,28 @@
+---
+title: "截取数字 clamp"
+description: "clamp 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>截取数字</p>
+<br/>
+> 小于最小值或大于最大值时 返回最小值或最大值
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+<CodeRunner code={`
+const clamp1 = zztool.clamp(5, 0, 10) // 5
+const clamp2 = zztool.clamp(11, 0, 10) // 10
+console.log(clamp1,clamp2);
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *Array* | ✅ | - |
+| *size* | *分割的数组大小* | *Number* | ✅ | - |
+
+### 返回值
+返回一个分组后的数据
