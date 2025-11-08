@@ -11,6 +11,10 @@ export default defineConfig({
   build: {
     format: 'directory'
   },
+  i18n: {
+    locales: ["zh-CN", "en"],
+    defaultLocale: "zh-CN",
+  },
 	integrations: [
 		starlight({
 			title: '@zzcpt/zztool',
