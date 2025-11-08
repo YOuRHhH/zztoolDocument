@@ -8,7 +8,7 @@ description: '@zzcpt/zztool 依赖 安装'
 ## cdn
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js">
+<script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool">
 </script>
 ```
 
