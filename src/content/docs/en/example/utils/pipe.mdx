@@ -1,0 +1,33 @@
+---
+title: "管道函数 pipe"
+description: "pipe 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>管道函数</p>
+<br/>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+
+<CodeRunner code={`
+const add2 = (x) => x + 2;
+const multiply3 = (x) => x * 3;
+const result = zztool.pipe(add2, multiply3)(5);
+console.log(result); // (5 + 2) * 3 = 21
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *args* | *函数参数* | *\** | *✅* | *-* |
+{/* | *index* | *索引* | *String* | *✅* | *-* | */}
+{/* | *first* | *首字符* | *String* | *❌* | *空字符* | */}
+{/* | *format* | *格式* | *String* | *❌* | *hh:mm* | */}
+
+
+
+### 返回值
+返回值

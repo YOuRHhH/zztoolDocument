@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mdx from '@astrojs/mdx';
 
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://yourhhh.github.io', // 你的实际域名
@@ -11,10 +12,10 @@ export default defineConfig({
   build: {
     format: 'directory'
   },
-  i18n: {
-    locales: ["zh-CN", "en"],
-    defaultLocale: "zh-CN",
-  },
+  // i18n: {
+  //   locales: ["zh-CN", "en"],
+  //   defaultLocale: "zh-CN",
+  // },
 	integrations: [
 		starlight({
 			title: '@zzcpt/zztool',

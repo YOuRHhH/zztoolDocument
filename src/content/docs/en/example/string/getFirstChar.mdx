@@ -1,0 +1,27 @@
+---
+title: "第一个字符 getFirstChar"
+description: "getFirstChar 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>获取字符串第一位</p>
+<br/>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+<CodeRunner code={`
+const str = zztool.getFirstChar('123') // '1'
+console.log(str)
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *String* | ✅ | - |
+
+
+
+### 返回值
+返回值

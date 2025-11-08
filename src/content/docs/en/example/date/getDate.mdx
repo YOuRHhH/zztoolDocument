@@ -1,0 +1,40 @@
+---
+title: "获取日期 getDate"
+description: "getDate 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>获取日期</p>
+<br/>
+
+> 如果只有一个参数，`data`会被当为`format`传递 <br/>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+<CodeRunner code={`
+const data = zztool.getDate(); // 2023/01/01 xx:xx:xx
+const data1 = zztool.getDate('Y-M-D'); // 2023-01-01
+const data2 = zztool.getDate('2023/1/1','Y-M-D'); // 2023-01-01
+const data3 = zztool.getDate(new Date(),'Y-M-D'); // 2023-01-01
+const data4 = zztool.getDate(Date.now(),'Y-M-D'); // 2023-01-01
+
+console.log(data)
+console.log(data1)
+console.log(data2)
+console.log(data3)
+console.log(data4)
+
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *String \| Date \| Number* | ❌ | - |
+| *format* | *格式* | *String* | ❌ | - |
+
+
+
+### 返回值
+返回值

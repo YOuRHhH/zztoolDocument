@@ -4,23 +4,20 @@ description: "deepRenameKey 使用"
 ---
 
 import CodeRunner from "../../../../components/CodeRunner.astro"
-import Badge from "../../../../components/Badge.astro"
-
-> <Badge v='2.5.4' />&nbsp;增加键映射表,支持多层
-
-<br/>
 
 <p>修改对象中的下标</p>
 <br/>
-> 通过 <strong>键映射表</strong> 实现深层键名重映射，  
-> 避免重复遍历，保持数据结构与原始值一致。
+
+
+
 
 <head>
   <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
 </head>
+
 <CodeRunner code={`
-const data = zztool.deepRenameKey({ a: { b: { c: 1 },c:1,d:2 } }, "c,d", "xxx,love") 
-// { a: { b: { xxx: 1 },xxx:1,love:2 } }
+const data = zztool.deepRenameKey({ a: { b: { c: 1 },c:1 } }, "c", "xxx") 
+// { a: { b: { xxx: 1 },xxx:1 } }
 console.log(data)
 `} />
 
@@ -32,7 +29,4 @@ console.log(data)
 | *newKey* | *新键名* | *String* | ✅ | - |
 
 ### 返回值
-返回一个新的对象，指定键名被替换为新键名，原对象不会被修改。
-
-### 更新
-* <Badge v='2.5.4' />&nbsp;增加键映射表,支持多层
+修改后的数据

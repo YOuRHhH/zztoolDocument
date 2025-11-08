@@ -1,0 +1,50 @@
+---
+title: "本地存储 storage"
+description: "storage 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>本地存储</p>
+<br/>
+
+* getStorage
+* setStorage
+* removeStorage
+> <p>支持支持多层</p>
+
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+
+<CodeRunner code={`
+zztool.removeStorage('userInfo');
+zztool.setStorage('userInfo', {name: 'zzcpt', age: 18});
+zztool.setStorage('userInfo.sex', '1');
+zztool.setStorage('userInfo.info',{});
+zztool.setStorage('userInfo.info.hobby', ['football', 'basketball']);
+const data1 = zztool.getStorage('userInfo');
+console.log(data1);
+console.log('------------------------')
+const data2 = zztool.getStorage('userInfo.info.hobby');
+console.log(data2);
+zztool.removeStorage('userInfo.sex');
+console.log('------------------------')
+const data3 = zztool.getStorage('userInfo');
+console.log(data3);
+
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+{/* | *ms* | *时间* | *Number* | *✅* | *-* | */}
+{/* | *index* | *索引* | *String* | *✅* | *-* | */}
+{/* | *newIndex* | *索引* | *String* | *✅* | *-* | */}
+{/* | *format* | *格式* | *String* | *❌* | *hh:mm* | */}
+
+
+
+### 返回值
+返回值

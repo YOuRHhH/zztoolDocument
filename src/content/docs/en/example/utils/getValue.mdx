@@ -1,0 +1,60 @@
+---
+title: "获取索引值 getValue"
+description: "getValue 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>获取索引值</p>
+<br/>
+仅适用于对象嵌套，支持以下形式：
+* 'xxx.xxx.xxx' 形式
+* 'xxx[0].yyy' 形式
+* [xxx, xxx, xxx] 形式
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool@latest/dist/zztool.umd.min.js" defer></script>
+</head>
+<CodeRunner code={`
+const obj = {
+  name: 'zzcpt',
+  age: 18,
+  sex: '0',
+  hobby: ['football', 'basketball'],
+  address: {
+    city: 'beijing',
+    street: 'dongcheng',
+    house: '1001'
+  }
+}
+const obj1 = {
+  name: 'zztool',
+  age: 18,
+  sex: '1',
+  hobby: ['football', 'basketball'],
+  address: {
+    city: 'beijing',
+    street: 'dongcheng',
+    house: '1000'
+  }
+}
+
+const keys = zztool.equal(obj,obj1,{returnKeys:true});
+console.log(keys);
+
+keys.forEach(key => {
+  console.log(zztool.getValue(obj,key));
+});
+
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *url* | *url链接地址 node环境下参数必填* | *String* | *❌* | *当前域名地址* |
+{/* | *end* | *结束时间* | *String* | *✅* | *-* |
+| *step* | *步长* | *String* | *❌* | *01:00* |
+| *format* | *格式* | *String* | *❌* | *hh:mm* | */}
+
+### 返回值
+格式化参数

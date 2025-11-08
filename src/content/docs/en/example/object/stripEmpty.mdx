@@ -4,11 +4,7 @@ description: "stripEmpty 使用"
 ---
 
 import CodeRunner from "../../../../components/CodeRunner.astro"
-import Badge from "../../../../components/Badge.astro"
 
-> <Badge v='2.5.4' />&nbsp;解决输出与预期不一样
-
-<br/>
 <p>打乱数组</p>
 <br/>
  * 空数组都会被过滤掉`arr:[]`
@@ -34,15 +30,3 @@ console.log(zztool.stripEmpty(obj))
 
 ### 返回值
 返回值
-
-### 更新
-* <Badge v='2.5.4' />&nbsp;
-  ```javascript
-    /*
-    * 输出与预期不一样
-    * 预期 {}
-    * 实际 {b:{}}
-    */
-    const obj = {a:[],b:{c:[]}}
-    stripEmpty(obj)
-    ```
