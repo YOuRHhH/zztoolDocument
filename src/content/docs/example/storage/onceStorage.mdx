@@ -1,0 +1,113 @@
+---
+title: "本地存储 onceStorage"
+description: "onceStorage 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+import Badge from "../../../../components/Badge.astro"
+
+<p>一次性缓存数据</p>
+<br/>
+
+* onceStorage
+* getOnceStorage
+* getAllOnceStorage
+* removeOnceStorage
+* removeAllOnceStorage
+<br/>
+> <Badge v='2.6.0' />&nbsp;一次性缓存数据 <br/>
+> 缓存前缀 `onceStorage_`
+
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool" defer></script>
+</head>
+
+
+### 演示
+<CodeRunner code={`
+// onceStorage 演示
+const key = 'userInfo';
+const value = {name: 'tom'};
+zztool.onceStorage(key, value);
+const storage = zztool.onceStorage(key);
+console.log(storage) // {name: 'tom'}
+console.log(zztool.getOnceStorage(key)) // null
+`} />
+
+
+### onceStorage
+<br/>
+> 第一次存储数据，第二次获取数据并清除
+
+<br/>
+```javascript
+// 设置缓存数据 注：如果有相同key先返回旧数据并清除key，不会进行设值
+const key = 'userInfo';
+const value = {name: 'tom'};
+zztool.onceStorage(key, value);
+// 获取一次性缓存数据 注：获取后会清除缓存
+const storage = zztool.onceStorage(key);
+console.log(zztool.getOnceStorage(key)) // null
+```
+
+### getOnceStorage
+<br/>
+> 获取一次性数据，但是不会清除缓存
+
+<br/>
+```javascript
+const key = 'userInfo';
+const value = {name: 'tom'};
+zztool.onceStorage(key, value);
+// 获取一次性缓存数据 注：不会清除缓存
+const storage = zztool.getOnceStorage(key); 
+console.log(storage) // {name: 'tom'}
+```
+
+### getAllOnceStorage
+<br/>
+> 获取一次性数据，但是不会清除缓存
+
+<br/>
+```javascript
+// 获取所有一次性缓存数据 注：不会清除缓存
+const storage = zztool.getAllOnceStorage(key); 
+console.log(storage) // [{xxx:xxx},{xxx:xxx}]
+```
+### removeOnceStorage
+<br/>
+> 移出一次性缓存数据
+
+<br/>
+```javascript
+// 移出一次性缓存数据 
+zztool.removeOnceStorage(key); 
+```
+### removeAllOnceStorage
+<br/>
+> 移出所有一次性缓存数据
+
+<br/>
+```javascript
+// 移出所有一次性缓存数据 
+zztool.removeAllOnceStorage(key); 
+```
+
+
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+{/* | *ms* | *时间* | *Number* | *✅* | *-* | */}
+{/* | *index* | *索引* | *String* | *✅* | *-* | */}
+{/* | *newIndex* | *索引* | *String* | *✅* | *-* | */}
+{/* | *format* | *格式* | *String* | *❌* | *hh:mm* | */}
+
+
+
+### 返回值
+返回值
+
+### 更新
+* <Badge v='2.6.0' /> &nbsp;新增

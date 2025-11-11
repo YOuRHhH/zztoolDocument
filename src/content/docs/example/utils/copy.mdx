@@ -1,0 +1,32 @@
+---
+title: "复制 copy"
+description: "copy 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>复制</p>
+<br/>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool" defer></script>
+</head>
+```javascript
+<button onclick="zztool.copy('Tom')">click me copy</button>
+```
+<br/>
+<button onclick="zztool.copy('Tom')">click me copy</button>
+
+<CodeRunner code={`
+
+
+
+`} />
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *Function* | *回调函数* | *Funciton* | ✅ | - |
+| *wait* | *等待时间* | *Number* | ❌ | 800 |
+
+
+### 返回值

@@ -1,0 +1,57 @@
+---
+title: "cookie"
+description: "cookie 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>本地存储</p>
+<br/>
+
+* getCookie
+* setCookie
+* removeCookie
+> <p></p>
+
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool" defer></script>
+</head>
+
+<CodeRunner code={`
+zztool.setCookie('name', 'zzcpt',{
+  expires: 1000*60*60 // 一小时后过期
+})
+console.log(zztool.getCookie('name'))
+zztool.removeCookie('name')
+console.log(zztool.getCookie('name')) // null
+
+`} />
+
+### props
+<br/>
+#### setCookie
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *name* | *名称* | *String* | *✅* | *-* |
+| *value* | *索引* | *\** | *✅* | *-* |
+| *options* | *配置项* | *Object* | *❌* | *-* |
+| *options.expires* | *过期时间* | *Number* | *❌* | *-* |
+| *options.path* | *路径* | *String* | *❌* | *-* |
+| *options.domain* | *域名* | *String* | *❌* | *-* |
+| *options.secure* | *安全性* | *String* | *❌* | *-* |
+| *options.sameSite* | *安全性* | *Strict \| Lax \| None* | *❌* | *-* |
+#### getCookie
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *name* | *名称* | *String* | *✅* | *-* |
+#### removeCookie
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *name* | *名称* | *String* | *✅* | *-* |
+| *path* | *路径* | *String* | *❌* | *-* |
+
+
+
+### 返回值
+返回值

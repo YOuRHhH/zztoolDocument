@@ -49,6 +49,10 @@ export default defineConfig({
               autogenerate: { directory: 'example/regExp' }
             },
             {
+              label: '存储',
+              autogenerate: { directory: 'example/storage' }
+            },
+            {
               label: '工具',
               autogenerate: { directory: 'example/utils' }
             },
