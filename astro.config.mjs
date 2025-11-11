@@ -23,7 +23,12 @@ export default defineConfig({
       sidebar: [
         {
           label: '快速开始',
-          autogenerate: { directory: 'start' }
+          items:[
+            {label:'📦 安装 install',link:'start/install'},
+            {label:'🚀 使用 usage',link:'start/usage'},
+            {label:'🍔 更新日志',link:'https://github.com/YOuRHhH/zztool/blob/main/CHANGELOG.md'}
+          ]
+          
         },
         {
           label: '方法', 
