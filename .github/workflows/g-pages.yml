@@ -40,7 +40,7 @@ jobs:
           git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/YOuRHhH/zztoolDocument.git
 
           git add -A
-          git commit -m "deploy: update dist"
+          git commit -m "deploy: update dist" || echo "No changes to commit"
           git push origin HEAD:page -f
 
           cd -
