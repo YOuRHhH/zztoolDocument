@@ -20,6 +20,7 @@ jobs:
         run: |
           npm ci
           npm run build
+          touch dist/.nojekyll  # 防止 GitHub Pages 忽略文件
 
       # - name: Deploy to page branch
       #   uses: peaceiris/actions-gh-pages@v3
@@ -36,20 +37,10 @@ jobs:
           ssh-add ~/.ssh/id_ed25519
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           
-      - name: Push dist to page branch
-        run: |
-          cd dist
-          git init
-          
-          # 使用你提供的用户名和邮箱
-          git config user.name "Czhangzihao"
-          git config user.email "101560703+Czhangzihao@users.noreply.github.com"
-
-          # 设置远程仓库，使用 GitHub token 认证
-          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/YOuRHhH/zztoolDocument.git
-
-          git add -A
-          git commit -m "deploy: update dist" || echo "No changes to commit"
-          git push origin HEAD:page -f
-
-          cd -
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: page
+          force_orphan: true
