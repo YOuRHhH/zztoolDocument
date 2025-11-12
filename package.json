@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && copy nul dist\\.nojekyll",
+    "build": "astro build && node -e \"require('fs').writeFileSync('dist/.nojekyll', '')\"",
     "preview": "astro preview",
     "astro": "astro"
   },
