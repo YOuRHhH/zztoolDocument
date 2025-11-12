@@ -21,9 +21,26 @@ jobs:
           npm ci
           npm run build
 
-      - name: Deploy to page branch
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: page
+      # - name: Deploy to page branch
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./dist
+      #     publish_branch: page
+      - name: Push dist to page branch
+        run: |
+          cd dist
+          git init
+          
+          # 使用你提供的用户名和邮箱
+          git config user.name "Czhangzihao"
+          git config user.email "101560703+Czhangzihao@users.noreply.github.com"
+
+          # 设置远程仓库，使用 GitHub token 认证
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/YOuRHhH/zztoolDocument.git
+
+          git add -A
+          git commit -m "deploy: update dist"
+          git push origin HEAD:page -f
+
+          cd -
