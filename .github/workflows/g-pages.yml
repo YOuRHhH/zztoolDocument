@@ -37,7 +37,7 @@ jobs:
           git config user.email "101560703+Czhangzihao@users.noreply.github.com"
 
           # 设置远程仓库，使用 GitHub token 认证
-          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/YOuRHhH/zztoolDocument.git
+          git remote add origin https://x-access-token:${{ secrets.MY_PAT }}@github.com/YOuRHhH/zztoolDocument.git
 
           git add -A
           git commit -m "deploy: update dist" || echo "No changes to commit"
