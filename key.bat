@@ -1,0 +1,1 @@
+ssh-keygen -t ed25519 -C "Czhangzihao@github.com" -f deploy_key

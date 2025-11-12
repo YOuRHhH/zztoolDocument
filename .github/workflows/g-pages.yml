@@ -27,6 +27,15 @@ jobs:
       #     github_token: ${{ secrets.GITHUB_TOKEN }}
       #     publish_dir: ./dist
       #     publish_branch: page
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.deploy_key }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          
       - name: Push dist to page branch
         run: |
           cd dist
@@ -37,7 +46,7 @@ jobs:
           git config user.email "101560703+Czhangzihao@users.noreply.github.com"
 
           # 设置远程仓库，使用 GitHub token 认证
-          git remote add origin https://x-access-token:${{ secrets.MY_PAT }}@github.com/YOuRHhH/zztoolDocument.git
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/YOuRHhH/zztoolDocument.git
 
           git add -A
           git commit -m "deploy: update dist" || echo "No changes to commit"
