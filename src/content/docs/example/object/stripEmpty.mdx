@@ -6,7 +6,10 @@ description: "stripEmpty 使用"
 import CodeRunner from "../../../../components/CodeRunner.astro"
 import Badge from "../../../../components/Badge.astro"
 
-> <Badge v='2.5.4' />&nbsp;解决输出与预期不一样
+> <Badge v='2.6.3' />&nbsp;存在循环依赖问题，优化代码，通过严格边缘性测试
+
+> 已经发现2.6.3存在bug，我今天不想写代码了，累了，一星期之内搞定2025-11-12 16:53 <br/>
+> 想了一下逻辑，都为空最该返回最顶层的数据类型数据([ ] or \{ \})
 
 <br/>
 <p>打乱数组</p>
@@ -20,6 +23,8 @@ import Badge from "../../../../components/Badge.astro"
 <CodeRunner code={`
 const obj = { a: 1, d:'',z:{a:1,b:'',xx:{},zz:[]}};
 console.log(zztool.stripEmpty(obj))
+const obj1 = [{a:1},[]];
+console.log(zztool.stripEmpty(obj1))
 `} />
 
 ### props
@@ -36,6 +41,7 @@ console.log(zztool.stripEmpty(obj))
 返回值
 
 ### 更新
+* <Badge v='2.6.3' />&nbsp;存在循环依赖问题，优化代码，通过严格边缘性测试
 * <Badge v='2.5.4' />&nbsp;
   ```javascript
     /*
