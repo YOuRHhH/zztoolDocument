@@ -1,0 +1,43 @@
+---
+title: "数据合并 dataMerge"
+description: "dataMerge 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>合并数据</p>
+<br/>
+ * 并集：合并去重
+ * 交集：两个数组都有的值
+ * 差集：data1中有，data2中没有的值
+ * 补集：两个数组中各自没有的值
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool" defer></script>
+</head>
+<CodeRunner code={`
+const arr = [1,2,3,4,5];
+const arr1 = [2,3,4,5,6];
+const type1 = zztool.dataMerge(arr, arr1, 1) // [1,2,3,4,5,6]
+console.log(type1);
+const type2 = zztool.dataMerge(arr, arr1, 2) // [2,3,4,5]
+console.log(type2);
+const type3 = zztool.dataMerge(arr, arr1, 3) // [1]
+console.log(type3);
+const type4 = zztool.dataMerge(arr, arr1, 4) // [1,6]
+console.log(type4);
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *Array* | ✅ | - |
+| *data1* | *数据* | *Array* | ✅ | - |
+| *type* | *类型* | *Enum(number)* | ❌ | 1 |
+#### type
+`{1：并集，2：交集，3：差集，4：补集}`
+<br/>
+
+
+### 返回值
+合并后的数组

@@ -1,0 +1,48 @@
+---
+title: "移除空索引 stripEmpty"
+description: "stripEmpty 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+import Badge from "../../../../components/Badge.astro"
+
+> <Badge v='2.5.4' />&nbsp;解决输出与预期不一样
+
+<br/>
+<p>打乱数组</p>
+<br/>
+ * 空数组都会被过滤掉`arr:[]`
+ * 去空判断逻辑为统一的内部函数 [defaultCheckEmpty](https://github.com/YOuRHhH/zztool/blob/main/lib/utils/public.ts)
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool" defer></script>
+</head>
+
+<CodeRunner code={`
+const obj = { a: 1, d:'',z:{a:1,b:'',xx:{},zz:[]}};
+console.log(zztool.stripEmpty(obj))
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *\** | *✅* | *-* |
+| *option* | *配置项* | *Object* | *❌* | *-* |
+| *option.checkEmptyFn* | *判空逻辑* | *Function* | *❌* | *defaultCheckEmpty* |
+{/* | *format* | *格式* | *String* | *❌* | *hh:mm* | */}
+
+
+
+### 返回值
+返回值
+
+### 更新
+* <Badge v='2.5.4' />&nbsp;
+  ```javascript
+    /*
+    * 输出与预期不一样
+    * 预期 {}
+    * 实际 {b:{}}
+    */
+    const obj = {a:[],b:{c:[]}}
+    stripEmpty(obj)
+    ```

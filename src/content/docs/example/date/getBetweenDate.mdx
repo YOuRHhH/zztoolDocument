@@ -1,0 +1,34 @@
+---
+title: "获取日期之间 getBetweenDate"
+description: "getBetweenDate 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>获取两个日期之间的日期</p>
+<br/>
+
+> 参数只接受字符串，我发现太单一，后续会更新支持更多日期格式 <br/>
+> 参数 ≠ 字符串，可使用 getDate 方法格式化
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool" defer></script>
+</head>
+<CodeRunner code={`
+const data = zztool.getBetweenDate('2020-01-01', '2020-01-03') // ['2020-01-01', '2020-01-02', '2020-01-03']
+const data1 = zztool.getBetweenDate('2023-01-01', '2023-01-03', true) // 3
+console.log(data)
+console.log(data1)
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *日期* | *String* | ✅ | - |
+| *data1* | *日期* | *String* | ✅ | - |
+| *days* | *是否返回天数* | *Boolean* | - | false |
+
+
+
+### 返回值
+返回值

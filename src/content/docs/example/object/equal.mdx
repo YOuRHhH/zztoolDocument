@@ -1,0 +1,34 @@
+---
+title: "数据对比 equal"
+description: "equal 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>深度比较两个对象或数组</p>
+<br/>
+> 一致返回`false`，不一致返回`true`
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool" defer></script>
+</head>
+<CodeRunner code={`
+const obj1 = { a: 1, b: { c: 2 } };
+const obj2 = { a: 1, b: { c: 3 } };
+console.log(zztool.equal(obj1, obj2, { returnKeys: true })); // ['b.c']
+console.log(zztool.equal(obj1, obj2)); // true
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *Object \|Array* | ✅ | - |
+| *data1* | *数据* | *Object \|Array* | ✅ | - |
+| *options* | *配置项* | *Object* | ❌ | - |
+| *options.returnKeys* | *返回不同项的 key* | *boolean* | ❌ | false |
+| *options.arrayDiff* | *是否检查数组内差异* | *boolean* | ❌ | true |
+
+
+
+### 返回值
+修改后的数据

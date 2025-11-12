@@ -1,0 +1,31 @@
+---
+title: "打乱数组 shuffleArray"
+description: "shuffleArray 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>打乱数组</p>
+<br/>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool" defer></script>
+</head>
+
+<CodeRunner code={`
+const arr = [1,2,3,4,5,6,7,8,9,10];
+console.log(zztool.shuffleArray(arr)); // 打乱后的数组
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *Array* | *✅* | *-* |
+{/* | *index* | *索引* | *String* | *✅* | *-* |
+| *newIndex* | *索引* | *String* | *✅* | *-* | */}
+{/* | *format* | *格式* | *String* | *❌* | *hh:mm* | */}
+
+
+
+### 返回值
+返回值

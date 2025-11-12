@@ -1,0 +1,28 @@
+---
+title: "节流 throttle"
+description: "throttle 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>节流</p>
+<br/>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool" defer></script>
+</head>
+<CodeRunner code={`
+const is = () => {
+  throttle(() => {
+     console.log("throttle");
+},1000)
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *Function* | *回调函数* | *Funciton* | ✅ | - |
+| *wait* | *等待时间* | *Number* | ❌ | 800 |
+
+
+### 返回值

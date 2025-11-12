@@ -1,0 +1,32 @@
+---
+title: "是否是今天 isToday"
+description: "isToday 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>是否是今天</p>
+<br/>
+
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool" defer></script>
+</head>
+
+<CodeRunner code={`
+const is = zztool.isToday(2758013775599);
+console.log(is) // false
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *时间* | *String \| Date \| Number* | *✅* | *-* |
+{/* | *option* | *配置项* | *Object* | *❌* | *-* | */}
+{/* | *option.open* | *自定义* | *Boolean* | *✅* | *-* | */}
+{/* | *option.cb* | *回调* | *Function* | *✅* | *-* | */}
+{/* | *format* | *格式* | *String* | *❌* | *hh:mm* | */}
+
+
+### 返回值
+返回值

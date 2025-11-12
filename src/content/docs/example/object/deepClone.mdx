@@ -1,0 +1,28 @@
+---
+title: "深克隆 deepClone"
+description: "deepClone 使用"
+---
+
+import CodeRunner from "../../../../components/CodeRunner.astro"
+
+<p>深克隆</p>
+<br/>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@zzcpt/zztool" defer></script>
+</head>
+<CodeRunner code={`
+const arr = [1];
+const arr2 = zztool.deepClone(arr);
+console.log(arr2);
+console.log(arr === arr2);
+`} />
+
+### props
+| 属性名 | 说明 | 类型 | 必填 | 默认值 |
+| --- | --- | --- | --- | --- |
+| *data* | *数据* | *\** | ✅ | - |
+
+
+### 返回值
+克隆数据
